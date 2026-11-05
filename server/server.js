@@ -157,26 +157,39 @@ async function startServer() {
         }
     });
 
-    // Integrar Vite (React HMR) em modo desenvolvimento ou servir estáticos
-    try {
-        const { createServer: createViteServer } = await import('vite');
-        const vite = await createViteServer({
-            root: rootDir,
-            server: { middlewareMode: true },
-            appType: 'spa'
-        });
-        app.use(vite.middlewares);
-        console.log('⚡ Frontend React (Vite HMR) integrado ao servidor Node.js!');
-    } catch (viteErr) {
-        console.warn('Vite middleware indisponível, servindo página HTML estática:', viteErr.message);
+    // Servir arquivos no modo Produção ou integrar Vite HMR em Desenvolvimento
+    if (process.env.NODE_ENV === 'production') {
+        const distDir = path.join(rootDir, 'dist');
+        if (fs.existsSync(distDir)) {
+            app.use(express.static(distDir));
+        }
         app.use(express.static(rootDir));
         app.get('*', (req, res) => {
-            const distIndex = path.join(rootDir, 'dist', 'index.html');
+            const distIndex = path.join(distDir, 'index.html');
             if (fs.existsSync(distIndex)) {
                 return res.sendFile(distIndex);
             }
-            res.sendFile(path.join(rootDir, 'Page exemplo oferta .html'));
+            res.sendFile(path.join(rootDir, 'index.html'));
         });
+        console.log('📦 Servindo aplicação em modo de PRODUÇÃO.');
+    } else {
+        // Integrar Vite (React HMR) em modo desenvolvimento
+        try {
+            const { createServer: createViteServer } = await import('vite');
+            const vite = await createViteServer({
+                root: rootDir,
+                server: { middlewareMode: true },
+                appType: 'spa'
+            });
+            app.use(vite.middlewares);
+            console.log('⚡ Frontend React (Vite HMR) integrado ao servidor Node.js!');
+        } catch (viteErr) {
+            console.warn('Vite middleware indisponível, servindo página HTML estática:', viteErr.message);
+            app.use(express.static(rootDir));
+            app.get('*', (req, res) => {
+                res.sendFile(path.join(rootDir, 'index.html'));
+            });
+        }
     }
 
     const server = app.listen(PORT, () => {
