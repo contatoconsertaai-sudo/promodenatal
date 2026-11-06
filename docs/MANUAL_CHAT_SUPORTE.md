@@ -55,3 +55,4 @@ Para adicionar ou alterar uma resposta pronta no componente React ([`SupportChat
 }
 ```
 No arquivo HTML (`index.html`), basta adicionar a mesma chave no objeto `chatFaqs` dentro da tag `<script>`.
+

@@ -69,6 +69,20 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
           const result = await checkPaymentStatus(pixData.identifier);
           if (result.status === 'paid') {
             clearInterval(intervalId);
+            if (window.ttq) {
+              window.ttq.track('CompletePayment', {
+                contents: [{
+                  content_id: 'smartpet-dogbot-99',
+                  content_type: 'product',
+                  content_name: product.title,
+                  quantity: 1,
+                  price: product.price
+                }],
+                content_type: 'product',
+                value: product.price,
+                currency: 'BRL'
+              });
+            }
             if (onPaymentConfirmed) {
               onPaymentConfirmed({
                 identifier: pixData.identifier,
@@ -157,6 +171,21 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
         trackingCode: response.trackingCode
       });
       setStep('pix');
+
+      if (window.ttq) {
+        window.ttq.track('InitiateCheckout', {
+          contents: [{
+            content_id: 'smartpet-dogbot-99',
+            content_type: 'product',
+            content_name: product.title,
+            quantity: 1,
+            price: product.price
+          }],
+          content_type: 'product',
+          value: product.price,
+          currency: 'BRL'
+        });
+      }
     } catch (err) {
       setErrorMessage(err.message || 'Erro ao gerar o código Pix.');
       setStep('form');

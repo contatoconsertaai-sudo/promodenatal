@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const QRCode = require('qrcode');
 const syncpayService = require('./services/syncpay.service');
+const tiktokService = require('./services/tiktok.service');
 
 const PORT = process.env.PORT || 3000;
 const rootDir = path.resolve(__dirname, '..');
@@ -89,6 +90,16 @@ async function startServer() {
             };
             ordersDB.set(syncResponse.identifier, orderData);
 
+            // 5. Dispara evento InitiateCheckout para a API de Eventos do TikTok
+            tiktokService.trackEvent({
+                eventName: 'InitiateCheckout',
+                eventId: `ic_${syncResponse.identifier}`,
+                client,
+                clientIp: req.ip || req.headers['x-forwarded-for'],
+                userAgent: req.headers['user-agent'],
+                value: amount || 99.90
+            }).catch(e => console.error('[TikTok Event InitiateCheckout]', e.message));
+
             return res.status(201).json({
                 success: true,
                 identifier: syncResponse.identifier,
@@ -150,10 +161,39 @@ async function startServer() {
                     order.paidAt = new Date().toISOString();
                     ordersDB.set(identifier, order);
                     console.log(`[Pedido Atualizado]: Pedido ${identifier} PAGO! Rastreio liberado: ${order.trackingCode}`);
+
+                    // Dispara evento CompletePayment para a API de Eventos do TikTok
+                    tiktokService.trackEvent({
+                        eventName: 'CompletePayment',
+                        eventId: `cp_${identifier}`,
+                        client: order.client,
+                        value: order.amount || 99.90
+                    }).catch(e => console.error('[TikTok Event CompletePayment]', e.message));
                 }
             }
         } catch (err) {
             console.error('[Webhook SyncPay] Erro no processamento assíncrono:', err);
+        }
+    });
+
+    /**
+     * Endpoint para envio de eventos personalizados para o TikTok
+     * POST /api/events/tiktok
+     */
+    app.post('/api/events/tiktok', async (req, res) => {
+        try {
+            const { eventName, eventId, client, value } = req.body;
+            const result = await tiktokService.trackEvent({
+                eventName: eventName || 'ViewContent',
+                eventId,
+                client,
+                clientIp: req.ip || req.headers['x-forwarded-for'],
+                userAgent: req.headers['user-agent'],
+                value: value || 99.90
+            });
+            return res.json({ success: true, result });
+        } catch (err) {
+            return res.status(500).json({ error: err.message });
         }
     });
 

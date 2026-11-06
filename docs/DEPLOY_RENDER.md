@@ -47,6 +47,8 @@ Ainda na tela de criação (ou na aba **Environment** após criar o serviço), c
 | `SYNCPAY_CLIENT_ID` | `ee4b3ab9-e6e0-4524-b374-4271524daa88` | Seu Client ID da SyncPay |
 | `SYNCPAY_CLIENT_SECRET` | `cfb79448-48e9-42da-8070-e4eb19e762a6` | Seu Client Secret da SyncPay |
 | `SYNCPAY_WEBHOOK_URL` | `https://SEU-APP.onrender.com/api/webhook/syncpay` | URL pública gerada pela Render |
+| `TIKTOK_PIXEL_ID` | `DBMJV8JC77UFMFQAB2G0` | ID do Pixel do TikTok para rastreamento |
+| `TIKTOK_ACCESS_TOKEN` | `a7d1c7845083ce990b4f4de74ffe0513c1263cb5` | Token de Acesso da API de Eventos do TikTok |
 
 > ⚠️ **Nota:** A Render fornecerá a URL pública do seu serviço (ex: `https://promodenatal.onrender.com`). Assim que o serviço for criado, atualize a variável `SYNCPAY_WEBHOOK_URL` com a sua URL real da Render.
 

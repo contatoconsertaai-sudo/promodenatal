@@ -17,4 +17,8 @@ services:
         sync: false
       - key: SYNCPAY_WEBHOOK_URL
         sync: false
+      - key: TIKTOK_PIXEL_ID
+        value: DBMJV8JC77UFMFQAB2G0
+      - key: TIKTOK_ACCESS_TOKEN
+        sync: false
 
