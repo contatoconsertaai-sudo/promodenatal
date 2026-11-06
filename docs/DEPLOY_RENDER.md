@@ -26,7 +26,7 @@ Este manual descreve o passo a passo completo para colocar a aplicação **Cacho
    * **Runtime:** `Node`
    * **Build Command:**
      ```bash
-     npm install && npm run build
+     npm install --include=dev && npm run build
      ```
    * **Start Command:**
      ```bash
