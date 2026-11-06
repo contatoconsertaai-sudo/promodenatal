@@ -73,10 +73,31 @@ Para que os pagamentos via Pix sejam confirmados automaticamente em tempo real e
 
 ---
 
-## 6. Testando em Produção
+## 7. Solução de Problemas Comuns
+
+### Erro: `Repository not found: https://github.com/...` na Render
+Esse erro acontece quando você tenta usar a aba **"Public Git Repository"**, mas o repositório no GitHub está configurado como **Privado (Private)**.
+
+Para resolver, você tem duas opções rápidas:
+
+* **Opção 1 (Tornar o repositório Público no GitHub - Mais Fácil):**
+  1. No GitHub, abra `https://github.com/contatoconsertaai-sudo/ofersoffshore/settings`.
+  2. Role a página até o final na seção **"Danger Zone"**.
+  3. Clique em **"Change visibility"** -> **"Change to public"** e confirme.
+  4. Volte na Render, clique em **Connect** e ele conectará na mesma hora!
+  *(Nota: Seus dados sensíveis e credenciais estão 100% seguros pois o `.env` está protegido no `.gitignore` e não foi para o GitHub).*
+
+* **Opção 2 (Conectar via aba "Git Provider"):**
+  1. Na tela da Render, clique na aba **`Git Provider`** (a primeira aba à esquerda de "Public Git Repository").
+  2. Conecte sua conta do GitHub.
+  3. Clique em **`Configure account`** ou **`Configure GitHub App`**.
+  4. Conceda permissão para o repositório `ofersoffshore` e clique em Salvar.
+  5. O repositório aparecerá na lista da Render com um botão azul **"Connect"**.
+
 
 1. Abra a URL da sua loja gerada na Render no celular ou no computador.
 2. Clique em **"COMPRAR NO PIX POR R$ 99,90"**.
 3. Preencha seus dados de entrega (o CEP preenche a rua automaticamente).
 4. O QR Code Pix oficial de R$ 99,90 será gerado.
 5. Ao efetuar o pagamento pelo aplicativo do banco, o Webhook da SyncPay notificará seu servidor Render e, em menos de 3 segundos, a tela de **Código de Rastreio Oficial dos Correios** abrirá confirmando o pedido!
+
