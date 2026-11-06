@@ -2,14 +2,22 @@ const axios = require('axios');
 
 class SyncPayService {
     constructor() {
-        this.baseUrl = process.env.SYNCPAY_BASE_URL || 'https://api.syncpayments.com.br';
-        this.clientId = process.env.SYNCPAY_CLIENT_ID;
-        this.clientSecret = process.env.SYNCPAY_CLIENT_SECRET;
-        this.webhookUrl = process.env.SYNCPAY_WEBHOOK_URL;
-
         // Cache em memória do token para otimizar requisições
         this.cachedToken = null;
         this.tokenExpiresAt = 0;
+    }
+
+    /**
+     * Recupera as configurações dinamicamente tratando espaços e aspas
+     */
+    getConfig() {
+        const clean = (val) => val ? String(val).trim().replace(/^["']|["']$/g, '') : '';
+        return {
+            baseUrl: clean(process.env.SYNCPAY_BASE_URL) || 'https://api.syncpayments.com.br',
+            clientId: clean(process.env.SYNCPAY_CLIENT_ID),
+            clientSecret: clean(process.env.SYNCPAY_CLIENT_SECRET),
+            webhookUrl: clean(process.env.SYNCPAY_WEBHOOK_URL)
+        };
     }
 
     /**
@@ -22,16 +30,23 @@ class SyncPayService {
             return this.cachedToken;
         }
 
+        const config = this.getConfig();
+
+        if (!config.clientId || !config.clientSecret) {
+            console.error('[SyncPay Config Error] SYNCPAY_CLIENT_ID ou SYNCPAY_CLIENT_SECRET não configurados!');
+            throw new Error('Credenciais da SyncPay não configuradas nas Variáveis de Ambiente do Render (Configure SYNCPAY_CLIENT_ID e SYNCPAY_CLIENT_SECRET na aba Environment da Render)');
+        }
+
         try {
-            const response = await axios.post(`${this.baseUrl}/api/partner/v1/auth-token`, {
-                client_id: this.clientId,
-                client_secret: this.clientSecret
+            const response = await axios.post(`${config.baseUrl}/api/partner/v1/auth-token`, {
+                client_id: config.clientId,
+                client_secret: config.clientSecret
             }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                timeout: 10000
+                timeout: 15000
             });
 
             const data = response.data;
@@ -42,8 +57,9 @@ class SyncPayService {
 
             return this.cachedToken;
         } catch (error) {
+            const apiMsg = error.response?.data?.message || error.response?.data?.error || (typeof error.response?.data === 'string' ? error.response.data : error.message);
             console.error('[SyncPay] Erro ao autenticar:', error.response?.data || error.message);
-            throw new Error('Falha na autenticação com a SyncPay');
+            throw new Error(`Falha na autenticação com a SyncPay (${apiMsg})`);
         }
     }
 
@@ -56,12 +72,13 @@ class SyncPayService {
      */
     async createCashIn({ amount, description, client }) {
         const token = await this.getAccessToken();
+        const config = this.getConfig();
 
         try {
             const payload = {
                 amount: Number(amount),
-                description: description || 'Pagamento do Pedido',
-                webhook_url: this.webhookUrl,
+                description: description || 'Presente de Natal - Cachorro Robô Inteligente Smart Pet Dogbot',
+                webhook_url: config.webhookUrl || undefined,
                 client: {
                     name: client.name,
                     cpf: client.cpf.replace(/\D/g, ''), // apenas números
@@ -70,7 +87,7 @@ class SyncPayService {
                 }
             };
 
-            const response = await axios.post(`${this.baseUrl}/api/partner/v1/cash-in`, payload, {
+            const response = await axios.post(`${config.baseUrl}/api/partner/v1/cash-in`, payload, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
