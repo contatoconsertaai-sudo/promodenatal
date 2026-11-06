@@ -6,7 +6,7 @@ Este manual descreve o passo a passo completo para colocar a aplicação **Cacho
 
 ## 1. Pré-Requisitos
 
-1. Repositório no GitHub: [`https://github.com/contatoconsertaai-sudo/ofersoffshore`](https://github.com/contatoconsertaai-sudo/ofersoffshore)
+1. Repositório no GitHub: [`https://github.com/contatoconsertaai-sudo/promodenatal`](https://github.com/contatoconsertaai-sudo/promodenatal)
 2. Conta criada no [Render.com](https://dashboard.render.com/) (pode entrar usando sua conta do GitHub).
 3. Suas credenciais da API SyncPay (`client_id` e `client_secret`).
 
@@ -18,9 +18,9 @@ Este manual descreve o passo a passo completo para colocar a aplicação **Cacho
 
 1. Acesse o **Dashboard da Render**: [dashboard.render.com](https://dashboard.render.com)
 2. No canto superior direito, clique em **`New +`** e selecione **`Web Service`**.
-3. Em **"Connect a repository"**, selecione o repositório **`contatoconsertaai-sudo/ofersoffshore`** (se não aparecer, clique em *Configure account* para autorizar o acesso da Render ao repositório).
+3. Em **"Connect a repository"**, selecione o repositório **`contatoconsertaai-sudo/promodenatal`** (se não aparecer, clique em *Configure account* para autorizar o acesso da Render ao repositório).
 4. Preencha os campos básicos:
-   * **Name:** `ofersoffshore` (ou o nome que preferir para sua URL, ex: `smartpet-natal`)
+   * **Name:** `promodenatal` (ou o nome que preferir para sua URL, ex: `smartpet-natal`)
    * **Region:** `Oregon (US West)` ou `Ohio (US East)`
    * **Branch:** `main`
    * **Runtime:** `Node`
@@ -48,7 +48,7 @@ Ainda na tela de criação (ou na aba **Environment** após criar o serviço), c
 | `SYNCPAY_CLIENT_SECRET` | `cfb79448-48e9-42da-8070-e4eb19e762a6` | Seu Client Secret da SyncPay |
 | `SYNCPAY_WEBHOOK_URL` | `https://SEU-APP.onrender.com/api/webhook/syncpay` | URL pública gerada pela Render |
 
-> ⚠️ **Nota:** A Render fornecerá a URL pública do seu serviço (ex: `https://ofersoffshore.onrender.com`). Assim que o serviço for criado, atualize a variável `SYNCPAY_WEBHOOK_URL` com a sua URL real da Render.
+> ⚠️ **Nota:** A Render fornecerá a URL pública do seu serviço (ex: `https://promodenatal.onrender.com`). Assim que o serviço for criado, atualize a variável `SYNCPAY_WEBHOOK_URL` com a sua URL real da Render.
 
 ---
 
@@ -56,7 +56,7 @@ Ainda na tela de criação (ou na aba **Environment** após criar o serviço), c
 
 1. Clique no botão **`Create Web Service`** (ou **`Deploy Latest Commit`**).
 2. O Render executará o `npm install && npm run build` e em cerca de 1 a 2 minutos o status mudará para **`Live`** (Verde).
-3. Clique no link do topo (ex: `https://ofersoffshore.onrender.com`) para acessar sua loja no ar com HTTPS ativo!
+3. Clique no link do topo (ex: `https://promodenatal.onrender.com`) para acessar sua loja no ar com HTTPS ativo!
 
 ---
 
@@ -81,7 +81,7 @@ Esse erro acontece quando você tenta usar a aba **"Public Git Repository"**, ma
 Para resolver, você tem duas opções rápidas:
 
 * **Opção 1 (Tornar o repositório Público no GitHub - Mais Fácil):**
-  1. No GitHub, abra `https://github.com/contatoconsertaai-sudo/ofersoffshore/settings`.
+  1. No GitHub, abra `https://github.com/contatoconsertaai-sudo/promodenatal/settings`.
   2. Role a página até o final na seção **"Danger Zone"**.
   3. Clique em **"Change visibility"** -> **"Change to public"** e confirme.
   4. Volte na Render, clique em **Connect** e ele conectará na mesma hora!
@@ -91,7 +91,7 @@ Para resolver, você tem duas opções rápidas:
   1. Na tela da Render, clique na aba **`Git Provider`** (a primeira aba à esquerda de "Public Git Repository").
   2. Conecte sua conta do GitHub.
   3. Clique em **`Configure account`** ou **`Configure GitHub App`**.
-  4. Conceda permissão para o repositório `ofersoffshore` e clique em Salvar.
+  4. Conceda permissão para o repositório `promodenatal` e clique em Salvar.
   5. O repositório aparecerá na lista da Render com um botão azul **"Connect"**.
 
 

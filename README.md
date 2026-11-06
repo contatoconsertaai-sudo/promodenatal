@@ -27,8 +27,8 @@ Landing page de alta conversão para o **Cachorro Robô Inteligente Smart Pet Do
 
 ### 1. Clonar o Repositório
 ```bash
-git clone https://github.com/contatoconsertaai-sudo/ofersoffshore.git
-cd ofersoffshore
+git clone https://github.com/contatoconsertaai-sudo/promodenatal.git
+cd promodenatal
 ```
 
 ### 2. Instalar as Dependências

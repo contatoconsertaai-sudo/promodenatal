@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ofersoffshore
+    name: promodenatal
     runtime: node
     plan: free
     region: oregon
@@ -17,3 +17,4 @@ services:
         sync: false
       - key: SYNCPAY_WEBHOOK_URL
         sync: false
+
