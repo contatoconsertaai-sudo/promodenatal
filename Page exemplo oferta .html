@@ -827,6 +827,55 @@
             z-index: 999;
         }
 
+        /* --- Widget de Chat de Suporte ao Vivo --- */
+        .chat-float-btn {
+            position: fixed;
+            bottom: 82px;
+            right: 20px;
+            z-index: 998;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0077ff, #0056b3);
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 35px;
+            box-shadow: 0 8px 24px rgba(0, 119, 255, 0.35);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .chat-float-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 119, 255, 0.45);
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            width: 360px;
+            max-width: calc(100vw - 30px);
+            height: 520px;
+            max-height: calc(100vh - 180px);
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+            animation: slideUpChat 0.25s ease-out;
+        }
+        .chat-window.open {
+            display: flex;
+        }
+        @keyframes slideUpChat {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .toast {
             background: white;
             padding: 12px 16px;
@@ -1198,6 +1247,65 @@
     <!-- Toast Prova Social -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Chat Interativo de Suporte ao Cliente -->
+    <div class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()" title="Tire suas dúvidas no Chat ao Vivo">
+        <div style="position: relative; display: flex; align-items: center;">
+            <span style="font-size: 1.4rem;">💬</span>
+            <span style="position: absolute; top: -2px; right: -4px; width: 10px; height: 10px; background-color: #10b981; border-radius: 50%; border: 2px solid #ffffff;"></span>
+        </div>
+        <div style="text-align: left; line-height: 1.2;">
+            <div style="font-weight: 800; font-size: 0.85rem;">Dúvidas? Fale Conosco</div>
+            <div style="font-size: 0.70rem; color: #bfdbfe;">🟢 Online agora</div>
+        </div>
+        <span id="chatUnreadBadge" style="background: #ef4444; color: #fff; font-size: 0.70rem; font-weight: 800; padding: 2px 7px; border-radius: 12px; margin-left: 4px;">1</span>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #0077ff;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #0077ff, #00c6ff); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🎄</div>
+                <div>
+                    <div style="font-weight: 800; font-size: 0.90rem; display: flex; align-items: center; gap: 6px;">
+                        Ana — Suporte Smart Pet
+                        <span style="font-size: 0.72rem; background: #059669; padding: 1px 6px; border-radius: 4px;">Oficial</span>
+                    </div>
+                    <div style="font-size: 0.72rem; color: #94a3b8;">🟢 Resposta instantânea</div>
+                </div>
+            </div>
+            <button onclick="toggleChat()" style="background: rgba(255,255,255,0.1); border: none; color: #cbd5e1; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;">✕</button>
+        </div>
+
+        <!-- Área de Mensagens -->
+        <div id="chatMessages" style="flex: 1; padding: 14px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 8px 12px; font-size: 0.75rem; color: #991b1b; text-align: center; font-weight: 600;">
+                🎅 Lote de Natal Prioritário com Envio em 7 a 14 dias úteis!
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <div style="max-width: 85%; padding: 10px 14px; border-radius: 14px 14px 14px 2px; background: #ffffff; color: #1e293b; font-size: 0.84rem; line-height: 1.45; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0;">
+                    Olá! 👋 Sou a <strong>Ana</strong>, especialista da Smart Pet Brasil. Como posso te ajudar com a sua compra de Natal hoje?
+                </div>
+                <span style="font-size: 0.65rem; color: #94a3b8; margin-top: 3px; margin-left: 4px;">Agora</span>
+            </div>
+        </div>
+
+        <!-- Pílulas de Dúvidas Rápidas -->
+        <div style="padding: 8px 12px; background: #ffffff; border-top: 1px solid #f1f5f9; display: flex; gap: 6px; overflow-x: auto; white-space: nowrap;">
+            <button type="button" onclick="sendChatFaq('prazo')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">🚚 Prazo de Entrega</button>
+            <button type="button" onclick="sendChatFaq('pagamento')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">💳 Pix R$ 99,90</button>
+            <button type="button" onclick="sendChatFaq('rastreio')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">📦 Código de Rastreio</button>
+            <button type="button" onclick="sendChatFaq('funcoes')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">🤖 O que ele faz?</button>
+            <button type="button" onclick="sendChatFaq('caixa')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">🎁 O que vem na caixa?</button>
+            <button type="button" onclick="sendChatFaq('garantia')" style="background:#eff6ff; color:#0077ff; border:1px solid #bfdbfe; padding:5px 10px; border-radius:16px; font-size:0.74rem; font-weight:700; cursor:pointer; flex-shrink:0;">🛡️ Garantia</button>
+        </div>
+
+        <!-- Formulário de Mensagem Livre -->
+        <form onsubmit="handleChatSubmit(event)" style="padding: 10px 12px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px; margin: 0;">
+            <input type="text" id="chatInputText" placeholder="Digite sua dúvida aqui..." style="flex: 1; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.82rem; outline: none; font-family: inherit;">
+            <button type="submit" style="background: #0077ff; color: #ffffff; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;">➤</button>
+        </form>
+    </div>
+
     <footer>
         <p style="font-weight: 700; color: #fff, margin-bottom: 6px;">🎄 SMART PET BRASIL — CAMPANHA OFICIAL DE NATAL</p>
         <p>&copy; 2026 Todos os direitos reservados. Pagamentos processados com segurança via SyncPay.</p>
@@ -1459,6 +1567,150 @@
 
         setTimeout(showToast, 3500);
         setInterval(showToast, 14000);
+
+        // --- Lógica do Chat Interativo de Suporte ---
+        let chatOpen = false;
+        const chatWindow = document.getElementById('chatWindow');
+        const chatUnreadBadge = document.getElementById('chatUnreadBadge');
+        const chatMessages = document.getElementById('chatMessages');
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            if (chatOpen) {
+                chatWindow.classList.add('open');
+                if (chatUnreadBadge) chatUnreadBadge.style.display = 'none';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } else {
+                chatWindow.classList.remove('open');
+            }
+        }
+
+        const chatFaqs = {
+            prazo: {
+                question: 'Qual é o prazo de entrega? Chega antes do Natal?',
+                answer: 'Sim! Nosso prazo de envio prioritário é de <strong>7 a 14 dias úteis</strong> com entrega garantida antes do Natal para todo o Brasil. Assim que o Pix é compensado, o pedido é despachado e você recebe o código de rastreio oficial na mesma hora!',
+                cta: '🎁 Garantir Meu Presente de Natal'
+            },
+            pagamento: {
+                question: 'Como funciona o pagamento de R$ 99,90 no Pix?',
+                answer: 'O pagamento é 100% seguro via Pix processado pela SyncPay. O produto está com <strong>67% de desconto de Natal (de R$ 299,90 por apenas R$ 99,90)</strong>. Você gera o QR Code na hora, paga no seu banco e o sistema reconhece em menos de 3 segundos!',
+                cta: '⚡ Comprar no Pix por R$ 99,90'
+            },
+            rastreio: {
+                question: 'Como recebo meu código de rastreio?',
+                answer: 'Você não precisa esperar dias por e-mail! Assim que o Pix é pago, o próprio site atualiza e abre a <strong>Página Oficial de Rastreio</strong> com o código dos Correios (ex: <code>XP849201745BR</code>) e confirmação do seu endereço de entrega.',
+                cta: '🔍 Ir para o Checkout'
+            },
+            funcoes: {
+                question: 'O que o Smart Pet Dogbot faz?',
+                answer: 'Ele é super inteligente! Obedece comandos de voz, faz movimentos de kung fu, dança ritmada, imita fazer xixi, late, toca músicas e tem olhos de LED que mudam de expressão. Funciona por controle remoto 2.4GHz (25m de alcance) e por aplicativo no celular via Bluetooth!',
+                cta: '🐾 Quero o Meu Dogbot'
+            },
+            caixa: {
+                question: 'O que vem dentro da embalagem original?',
+                answer: 'O Smart Pet vai na <strong>Caixa Original pronta para presente</strong>, contendo:<br>• 1x Cachorro Robô Inteligente Dogbot (31x16x19,5cm)<br>• 1x Controle Remoto 2.4GHz Ergonômico<br>• 1x Bateria Recarregável de Lítio<br>• 1x Cabo de Carregamento Rápido USB-C<br>• 1x Manual de Instruções em Português',
+                cta: '📦 Pedir com Caixa Original'
+            },
+            garantia: {
+                question: 'O produto tem garantia?',
+                answer: 'Com certeza! Você tem <strong>30 dias de garantia incondicional</strong>. Se você ou seu filho(a) não amarem o Smart Pet Dogbot, nós devolvemos 100% do seu dinheiro sem burocracia.',
+                cta: '🛡️ Comprar com Garantia Total'
+            }
+        };
+
+        function sendChatFaq(key) {
+            const item = chatFaqs[key];
+            if (!item) return;
+
+            appendChatBubble('user', item.question);
+            showChatTyping();
+
+            setTimeout(() => {
+                hideChatTyping();
+                appendChatBubble('bot', item.answer, item.cta);
+            }, 550);
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInputText');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendChatBubble('user', text);
+            input.value = '';
+            showChatTyping();
+
+            const lower = text.toLowerCase();
+            setTimeout(() => {
+                hideChatTyping();
+                let reply = 'Entendi perfeitamente! O Smart Pet Dogbot está em <strong>promoção especial de Natal por apenas R$ 99,90</strong> com frete de 7 a 14 dias úteis e código de rastreio imediato.';
+                let cta = '⚡ Comprar no Pix por R$ 99,90';
+
+                if (lower.includes('prazo') || lower.includes('tempo') || lower.includes('entrega') || lower.includes('chega') || lower.includes('natal') || lower.includes('dia')) {
+                    reply = 'O prazo de entrega é de <strong>7 a 14 dias úteis</strong> com garantia de chegada antes do Natal! O código de rastreio dos Correios é liberado automaticamente na hora após o pagamento.';
+                    cta = '🎁 Garantir Meu Dogbot de Natal';
+                } else if (lower.includes('pix') || lower.includes('valor') || lower.includes('preco') || lower.includes('preço') || lower.includes('pagar') || lower.includes('cartao') || lower.includes('cartão')) {
+                    reply = 'A oferta especial de Natal é no <strong>Pix com 67% de desconto por apenas R$ 99,90</strong>. Totalmente seguro com compensação bancária em 3 segundos!';
+                    cta = '⚡ Gerar Pix de R$ 99,90';
+                } else if (lower.includes('rastreio') || lower.includes('codigo') || lower.includes('código')) {
+                    reply = 'Assim que o seu Pix for pago, a tela atualiza sozinha e abre a <strong>Página Oficial com o Código de Rastreio</strong> e comprovante!';
+                    cta = '📦 Abrir Checkout';
+                } else if (lower.includes('bateria') || lower.includes('carreg') || lower.includes('usb')) {
+                    reply = 'O Smart Pet Dogbot possui <strong>bateria recarregável de lítio</strong> e vem acompanhado do cabo USB-C de carregamento rápido. O controle remoto usa 2 pilhas AAA comuns.';
+                } else if (lower.includes('idade') || lower.includes('ano') || lower.includes('crianca') || lower.includes('criança')) {
+                    reply = 'O brinquedo é certificado e recomendado para crianças <strong>a partir dos 3 anos</strong> de idade, feito em ABS de alta resistência atóxico com cantos arredondados.';
+                } else if (lower.includes('garantia') || lower.includes('troca')) {
+                    reply = 'Oferecemos <strong>garantia incondicional de 30 dias</strong> contra qualquer defeito ou insatisfação, além do suporte completo pós-venda!';
+                }
+
+                appendChatBubble('bot', reply, cta);
+            }, 650);
+        }
+
+        function showChatTyping() {
+            let typingEl = document.getElementById('chatTypingIndicator');
+            if (!typingEl) {
+                typingEl = document.createElement('div');
+                typingEl.id = 'chatTypingIndicator';
+                typingEl.style.cssText = 'display:flex; align-items:center; gap:6px; padding:6px 12px; background:#e2e8f0; border-radius:12px; width:fit-content; font-size:0.72rem; color:#475569; font-weight:600;';
+                typingEl.innerHTML = 'Ana está digitando <span style="display:inline-flex; gap:3px;"><span style="width:4px; height:4px; background:#64748b; border-radius:50%;"></span><span style="width:4px; height:4px; background:#64748b; border-radius:50%;"></span><span style="width:4px; height:4px; background:#64748b; border-radius:50%;"></span></span>';
+                chatMessages.appendChild(typingEl);
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideChatTyping() {
+            const typingEl = document.getElementById('chatTypingIndicator');
+            if (typingEl) typingEl.remove();
+        }
+
+        function appendChatBubble(sender, text, cta) {
+            const bubble = document.createElement('div');
+            bubble.style.cssText = `display:flex; flex-direction:column; align-items:${sender === 'user' ? 'flex-end' : 'flex-start'};`;
+            
+            const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            let ctaHtml = '';
+            if (cta) {
+                ctaHtml = `
+                    <div style="margin-top:10px;">
+                        <button type="button" onclick="toggleChat(); openModal();" style="background:linear-gradient(135deg, #10b981, #059669); color:#ffffff; border:none; padding:7px 12px; border-radius:8px; font-size:0.78rem; font-weight:800; cursor:pointer; width:100%; box-shadow:0 2px 6px rgba(16, 185, 129, 0.3);">
+                            ${cta}
+                        </button>
+                    </div>
+                `;
+            }
+
+            bubble.innerHTML = `
+                <div style="max-width:85%; padding:10px 14px; border-radius:${sender === 'user' ? '14px 14px 2px 14px' : '14px 14px 14px 2px'}; background:${sender === 'user' ? '#0077ff' : '#ffffff'}; color:${sender === 'user' ? '#ffffff' : '#1e293b'}; font-size:0.84rem; line-height:1.45; box-shadow:0 2px 8px rgba(0,0,0,0.04); border:${sender === 'user' ? 'none' : '1px solid #e2e8f0'}; white-space:pre-line;">
+                    ${text}
+                    ${ctaHtml}
+                </div>
+                <span style="font-size:0.65rem; color:#94a3b8; margin-top:3px; margin-inline:4px;">${now}</span>
+            `;
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     </script>
 </body>
 </html>

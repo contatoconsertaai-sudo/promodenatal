@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PixModal from './PixModal';
 import CustomerFeedbacks from './CustomerFeedbacks';
 import OrderTrackingPage from './OrderTrackingPage';
+import SupportChat from './SupportChat';
 
 const PRODUCT_IMAGES = [
   {
@@ -533,6 +534,9 @@ export default function ProductOffer() {
           </div>
         </div>
       )}
+
+      {/* Chat Interativo de Suporte ao Cliente */}
+      <SupportChat onOpenCheckout={() => setIsModalOpen(true)} />
     </div>
   );
 }
