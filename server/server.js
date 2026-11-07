@@ -33,6 +33,10 @@ async function startServer() {
     app.use('/img', express.static(path.join(rootDir, 'img')));
     app.use(express.static(rootDir));
 
+    // Rotas de favicon
+    app.get('/favicon.svg', (req, res) => res.sendFile(path.join(rootDir, 'favicon.svg')));
+    app.get('/favicon.ico', (req, res) => res.sendFile(path.join(rootDir, 'favicon.svg')));
+
     // Rota explícita da página principal
     app.get('/', (req, res) => {
         res.sendFile(path.join(rootDir, 'index.html'));

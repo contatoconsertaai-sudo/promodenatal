@@ -60,6 +60,11 @@ export default function ProductOffer() {
     ]
   };
 
+  // Título e SEO dinâmico
+  useEffect(() => {
+    document.title = '🐶 Smart Pet Dogbot® — Presente de Natal Oficial por R$ 99,90';
+  }, []);
+
   // Timer Regressivo
   useEffect(() => {
     const timer = setInterval(() => {

@@ -80,3 +80,4 @@ Para que os eventos de servidor continuem sendo enviados em produção na Render
    ```
 2. Retorno esperado: `{"code": 0, "message": "OK"}`.
 3. No [TikTok Ads Manager](https://ads.tiktok.com/), acesse **Ferramentas > Eventos > Web Events (Pixel DBMJV8JC77UFMFQAB2G0)** e clique na aba **"Eventos de Teste"** ou **"Visão Geral"** para ver os eventos em tempo real!
+
