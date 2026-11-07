@@ -4,43 +4,36 @@ const FAQ_LIST = [
   {
     id: 'prazo',
     chip: '🚚 Prazo de Entrega',
-    question: 'Qual é o prazo de entrega? Chega antes do Natal?',
-    answer: 'Sim! Nosso prazo de envio prioritário é de **7 a 14 dias úteis** com entrega garantida antes do Natal para todo o Brasil. Assim que o Pix é compensado, o pedido é despachado e você recebe o código de rastreio oficial na mesma hora!',
-    cta: '🎁 Garantir Meu Presente de Natal'
+    question: 'Qual é o prazo de entrega dos brinquedos?',
+    answer: 'Nosso prazo de envio expresso é de **7 a 14 dias úteis** com Frete Grátis para todo o Brasil. Assim que o Pix é compensado, o pedido entra em separação e você recebe o código de rastreio oficial dos Correios na mesma hora!',
+    cta: '🎁 Ver Todas as Ofertas'
   },
   {
     id: 'pagamento',
-    chip: '💳 Pagamento Pix (R$ 99,90)',
-    question: 'Como funciona o pagamento de R$ 99,90 no Pix?',
-    answer: 'O pagamento é 100% seguro via Pix processado pela SyncPay. O produto está com **67% de desconto de Natal (de R$ 299,90 por R$ 99,90)**. Você gera o QR Code na hora, paga no seu banco e o sistema aprova em menos de 3 segundos!',
-    cta: '⚡ Comprar no Pix por R$ 99,90'
+    chip: '⚡ Desconto no Pix',
+    question: 'Como funciona o pagamento com desconto no Pix?',
+    answer: 'O pagamento é 100% seguro processado via Banco Central / SyncPay. Na Black Friday da Brinkids, todos os brinquedos possuem desconto exclusivo no Pix e liberação imediata do código de rastreio!',
+    cta: '⚡ Comprar no Pix'
+  },
+  {
+    id: 'idade',
+    chip: '👶 Indicação por Idade',
+    question: 'Quais brinquedos são indicados para cada idade?',
+    answer: 'Temos opções selecionadas por pedagogos:\n• **0 a 1 ano:** Patinho Dançante, Caranguejo Fujão\n• **1 a 3 anos:** Livro Falante Bilíngue, Girafas Divertidas\n• **3 anos ou mais:** Câmera Digital Infantil, Blocos Magnéticos Montessori 3D',
+    cta: '🧸 Ver por Idade'
   },
   {
     id: 'rastreio',
     chip: '📦 Código de Rastreio',
     question: 'Como recebo meu código de rastreio?',
-    answer: 'Você não precisa esperar dias por e-mail! Assim que o Pix é pago, o próprio site atualiza e abre a **Página Oficial de Rastreio** com o código dos Correios (ex: `XP849201745BR`) e confirmação do seu endereço de entrega.',
-    cta: '🔍 Ver Como Funciona o Rastreio'
-  },
-  {
-    id: 'funcoes',
-    chip: '🤖 Funções do Cãozinho',
-    question: 'O que o Smart Pet Dogbot faz?',
-    answer: 'Ele é super inteligente! Obedece comandos de voz, faz movimentos de kung fu, dança ritmada, imita fazer xixi, late, toca músicas e tem olhos de LED que mudam de expressão. Funciona por controle remoto 2.4GHz (25m de alcance) e por aplicativo no celular via Bluetooth!',
-    cta: '🐾 Quero o Meu Dogbot'
-  },
-  {
-    id: 'caixa',
-    chip: '🎁 O que vem na caixa?',
-    question: 'O que vem dentro da embalagem original?',
-    answer: 'O Smart Pet vai na **Caixa Original pronta para presente**, contendo:\n• 1x Cachorro Robô Inteligente Dogbot (31x16x19,5cm)\n• 1x Controle Remoto 2.4GHz Ergonômico\n• 1x Bateria Recarregável de Lítio\n• 1x Cabo de Carregamento Rápido USB-C\n• 1x Manual de Instruções em Português',
-    cta: '📦 Pedir com Caixa Original'
+    answer: 'Você não precisa esperar dias por e-mail! Assim que o Pix é pago, o próprio site atualiza automaticamente e abre a **Página Oficial de Rastreio** com o código dos Correios (ex: `XP849201745BR`) e status em tempo real.',
+    cta: '🔍 Ver Central de Rastreio'
   },
   {
     id: 'garantia',
-    chip: '🛡️ Garantia e Devolução',
-    question: 'O produto tem garantia?',
-    answer: 'Com certeza! Você tem **30 dias de garantia incondicional**. Se você ou seu filho(a) não amarem o Smart Pet Dogbot, devolvemos 100% do seu dinheiro sem burocracia.',
+    chip: '🛡️ Garantia de 30 Dias',
+    question: 'Os brinquedos têm garantia?',
+    answer: 'Com certeza! Você tem **30 dias de garantia incondicional**. Se você ou seu filho(a) não amarem o produto, devolvemos 100% do valor pago sem nenhuma burocracia.',
     cta: '🛒 Comprar com Garantia Total'
   }
 ];
@@ -54,7 +47,7 @@ export default function SupportChat({ onOpenCheckout }) {
     {
       id: 1,
       sender: 'bot',
-      text: 'Olá! 👋 Sou a **Ana**, especialista da Smart Pet Brasil. Como posso te ajudar com a sua compra de Natal hoje?',
+      text: 'Olá! 👋 Sou a **Ana**, especialista da Brinkids Store. Como posso te ajudar a escolher o brinquedo educativo ideal hoje?',
       time: 'Agora'
     }
   ]);

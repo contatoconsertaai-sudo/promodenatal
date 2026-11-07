@@ -10,8 +10,7 @@ node_modules/
 .env.test.local
 .env.production.local
 
-# Production build
-dist/
+# Production build (mantemos dist no git para garantir deploy instantâneo no Render)
 dist-ssr/
 build/
 *.local
@@ -33,4 +32,8 @@ lerna-debug.log*
 *.sw?
 .DS_Store
 Thumbs.db
+
+# Scratch temporary files
+scratch/
+scratch_brinkids.html
 

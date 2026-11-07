@@ -24,7 +24,20 @@ function maskCepValue(val) {
   return v;
 }
 
-export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed }) {
+export default function PixModal({
+  isOpen,
+  onClose,
+  product,
+  cartItems = [],
+  cartTotal = 0,
+  onPaymentConfirmed
+}) {
+  const isCartCheckout = !product && cartItems.length > 0;
+  const currentTotal = isCartCheckout ? cartTotal : (product?.price || 99.90);
+  const checkoutTitle = isCartCheckout
+    ? `Pedido Brinkids (${cartItems.length} ${cartItems.length === 1 ? 'item' : 'itens'})`
+    : (product?.title || 'Brinquedo Educativo Brinkids');
+
   const [step, setStep] = useState('form'); // 'form' | 'loading' | 'pix'
   const [formData, setFormData] = useState({
     name: '',
@@ -70,16 +83,26 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
           if (result.status === 'paid') {
             clearInterval(intervalId);
             if (window.ttq) {
+              const contents = isCartCheckout
+                ? cartItems.map(i => ({
+                    content_id: i.product.id,
+                    content_type: 'product',
+                    content_name: i.product.title,
+                    quantity: i.quantity,
+                    price: i.product.price
+                  }))
+                : [{
+                    content_id: product?.id || 'smartpet-dogbot-99',
+                    content_type: 'product',
+                    content_name: product?.title || 'Smart Pet Dogbot',
+                    quantity: 1,
+                    price: product?.price || 99.90
+                  }];
+
               window.ttq.track('CompletePayment', {
-                contents: [{
-                  content_id: 'smartpet-dogbot-99',
-                  content_type: 'product',
-                  content_name: product.title,
-                  quantity: 1,
-                  price: product.price
-                }],
+                contents,
                 content_type: 'product',
-                value: product.price,
+                value: currentTotal,
                 currency: 'BRL'
               });
             }
@@ -89,7 +112,8 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
                 trackingCode: result.trackingCode || pixData.trackingCode,
                 client: result.client || formData,
                 address: result.address || addressData,
-                amount: product.price,
+                amount: currentTotal,
+                items: isCartCheckout ? cartItems : (product ? [{ product, quantity: 1 }] : []),
                 paidAt: result.paidAt || new Date().toISOString()
               });
             }
@@ -103,7 +127,7 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [isOpen, step, pixData, formData, addressData, product.price, onPaymentConfirmed]);
+  }, [isOpen, step, pixData, formData, addressData, currentTotal, isCartCheckout, cartItems, product, onPaymentConfirmed]);
 
   if (!isOpen) return null;
 
@@ -156,10 +180,31 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
     setErrorMessage('');
     setStep('loading');
 
+    const itemsPayload = isCartCheckout
+      ? cartItems.map((i) => ({
+          id: i.product.id,
+          name: i.product.title,
+          price: i.product.price,
+          quantity: i.quantity
+        }))
+      : [
+          {
+            id: product?.id || 'dogbot',
+            name: product?.title || 'Smart Pet Dogbot',
+            price: product?.price || 99.90,
+            quantity: 1
+          }
+        ];
+
+    const description = isCartCheckout
+      ? `Smart Pet Store: ${cartItems.map((i) => `${i.product.title} (x${i.quantity})`).join(', ')}`.slice(0, 120)
+      : (product?.title || 'Smart Pet Dogbot');
+
     try {
       const response = await createPixOrder({
-        amount: product.price,
-        description: product.title,
+        amount: currentTotal,
+        description,
+        items: itemsPayload,
         client: formData,
         address: addressData
       });
@@ -173,16 +218,28 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
       setStep('pix');
 
       if (window.ttq) {
+        const contents = isCartCheckout
+          ? cartItems.map((i) => ({
+              content_id: i.product.id,
+              content_type: 'product',
+              content_name: i.product.title,
+              quantity: i.quantity,
+              price: i.product.price
+            }))
+          : [
+              {
+                content_id: product?.id || 'smartpet-dogbot-99',
+                content_type: 'product',
+                content_name: product?.title || 'Smart Pet Dogbot',
+                quantity: 1,
+                price: product?.price || 99.90
+              }
+            ];
+
         window.ttq.track('InitiateCheckout', {
-          contents: [{
-            content_id: 'smartpet-dogbot-99',
-            content_type: 'product',
-            content_name: product.title,
-            quantity: 1,
-            price: product.price
-          }],
+          contents,
           content_type: 'product',
-          value: product.price,
+          value: currentTotal,
           currency: 'BRL'
         });
       }
@@ -216,27 +273,48 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
 
         {step === 'form' && (
           <div>
-            <h2 style={{ color: '#0f172a', fontSize: '1.3rem' }}>Onde Devemos Entregar Seu Dogbot?</h2>
+            <h2 style={{ color: '#0f172a', fontSize: '1.3rem' }}>Onde Devemos Entregar Seu Pedido de Natal?</h2>
 
             {/* Aviso Claro de que o Código de Rastreio abre após o pagamento */}
             <div className="tracking-pre-notice">
               <span>📦</span>
               <div>
-                <strong>LIBERAÇÃO IMEDIATA DO RASTREIO:</strong> Preencha seu endereço abaixo. Assim que você pagar o PIX de <strong>R$ 99,90</strong>, uma página abrirá <strong>automaticamente na sua tela com o seu CÓDIGO DE RASTREIO</strong>!
+                <strong>LIBERAÇÃO IMEDIATA DO RASTREIO:</strong> Preencha seu endereço abaixo. Assim que você pagar o PIX de <strong>R$ {currentTotal.toFixed(2).replace('.', ',')}</strong>, uma página abrirá <strong>automaticamente na sua tela com o seu CÓDIGO DE RASTREIO</strong>!
               </div>
             </div>
 
-            {/* Resumo do Produto */}
-            <div className="modal-product-summary">
-              <img src={product.imageUrl} alt={product.title} />
-              <div>
-                <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>
-                  Cachorro Robô Smart Pet Dogbot (Caixa Original)
+            {/* Resumo do Pedido (Produto Único ou Múltiplos Itens do Carrinho) */}
+            <div className="modal-product-summary" style={{ maxHeight: '140px', overflowY: 'auto' }}>
+              {isCartCheckout ? (
+                <div style={{ width: '100%' }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a', marginBottom: '6px' }}>
+                    📦 Itens do Pedido ({cartItems.length}):
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {cartItems.map((item) => (
+                      <div key={item.product.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                        <span>• {item.product.title} (x{item.quantity})</span>
+                        <strong style={{ color: '#059669' }}>R$ {(item.product.price * item.quantity).toFixed(2).replace('.', ',')}</strong>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ marginTop: '6px', paddingTop: '6px', borderTop: '1px dashed #cbd5e1', fontSize: '0.85rem', fontWeight: 900, color: '#059669', textAlign: 'right' }}>
+                    Total do Pedido no PIX: R$ {currentTotal.toFixed(2).replace('.', ',')}
+                  </div>
                 </div>
-                <div style={{ fontSize: '0.82rem', color: '#059669', fontWeight: 800 }}>
-                  Valor Único no PIX: R$ {product.price.toFixed(2).replace('.', ',')} • Frete Grátis Expresso
-                </div>
-              </div>
+              ) : (
+                <>
+                  <img src={product?.primaryImage || product?.imageUrl || '/img/foto-real-cliente-dogbot.jpg'} alt={product?.title} />
+                  <div>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>
+                      {product?.title || 'Smart Pet Dogbot'}
+                    </div>
+                    <div style={{ fontSize: '0.82rem', color: '#059669', fontWeight: 800 }}>
+                      Valor Único no PIX: R$ {currentTotal.toFixed(2).replace('.', ',')} • Frete Grátis Expresso
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {errorMessage && (
@@ -406,7 +484,7 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
               </div>
 
               <button type="submit" className="btn-buy" style={{ marginTop: '12px' }}>
-                ⚡ GERAR PIX DE R$ {product.price.toFixed(2).replace('.', ',')} E LIBERAR RASTREIO
+                ⚡ GERAR PIX DE R$ {currentTotal.toFixed(2).replace('.', ',')} E LIBERAR RASTREIO
               </button>
             </form>
           </div>
@@ -432,7 +510,7 @@ export default function PixModal({ isOpen, onClose, product, onPaymentConfirmed 
 
             {/* Aviso importante na tela do PIX sobre abertura automática da página de rastreio */}
             <div className="tracking-pix-warning">
-              🚨 <strong>NÃO FECHE ESTA TELA!</strong> Assim que você confirmar o pagamento de <strong>R$ 99,90</strong> no seu banco, esta janela abrirá <strong>AUTOMATICAMENTE</strong> a página com o seu <strong>CÓDIGO DE RASTREIO</strong> para entrega em <em>{addressData.street}, {addressData.number} ({addressData.city}/{addressData.state})</em>!
+              🚨 <strong>NÃO FECHE ESTA TELA!</strong> Assim que você confirmar o pagamento de <strong>R$ {currentTotal.toFixed(2).replace('.', ',')}</strong> no seu banco, esta janela abrirá <strong>AUTOMATICAMENTE</strong> a página com o seu <strong>CÓDIGO DE RASTREIO</strong> para entrega em <em>{addressData.street}, {addressData.number} ({addressData.city}/{addressData.state})</em>!
             </div>
 
             <div className="qr-placeholder">

@@ -32,17 +32,20 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
   return (
     <div className="tracking-page-wrapper">
       {/* Topo da Página de Rastreio */}
-      <div className="timer-bar xmas-bar">
-        <span>✅ PAGAMENTO PIX CONFIRMADO COM SUCESSO — SEU PEDIDO DE NATAL JÁ ESTÁ EM SEPARAÇÃO!</span>
+      <div className="timer-bar xmas-bar" style={{ background: '#0284c7' }}>
+        <span>✅ PAGAMENTO PIX CONFIRMADO COM SUCESSO — SEU PEDIDO BRINKIDS JÁ ESTÁ EM SEPARAÇÃO!</span>
       </div>
 
-      <header>
-        <div className="header-inner">
-          <div className="logo">
-            🤖 SMART<span>PET</span> BRASIL <span className="xmas-header-pill">📦 Central de Rastreio</span>
+      <header style={{ background: '#ffffff', borderBottom: '1px solid #e2e8f0', padding: '12px 20px' }}>
+        <div className="header-inner" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/logo-brinkids.png" alt="Brinkids" style={{ height: '36px' }} />
+            <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '0.75rem', fontWeight: 800, padding: '4px 10px', borderRadius: '12px' }}>
+              📦 Central de Rastreio
+            </span>
           </div>
           <div className="header-badges">
-            <span>🔒 Comprovante Oficial SyncPay</span>
+            <span style={{ fontSize: '0.8rem', color: '#16a34a', fontWeight: 700 }}>🔒 Comprovante Oficial SyncPay</span>
           </div>
         </div>
       </header>
@@ -153,17 +156,42 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
               </div>
             </div>
 
-            {/* Resumo do Produto */}
-            <div className="modal-product-summary" style={{ marginTop: '18px' }}>
-              <img src="/img/foto-real-cliente-dogbot.jpg" alt="Smart Pet Dogbot" />
-              <div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0f172a' }}>
-                  1x Cachorro Robô Smart Pet Dogbot Colorido
-                </div>
-                <div style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700 }}>
-                  Pago via PIX: R$ 99,90 • Frete Grátis Expresso
-                </div>
+            {/* Resumo dos Itens do Pedido */}
+            <div className="modal-product-summary" style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0f172a' }}>
+                📦 Itens Confirmados no Envio:
               </div>
+              {orderInfo.items && orderInfo.items.length > 0 ? (
+                orderInfo.items.map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+                    <img
+                      src={item.product?.primaryImage || '/img/foto-real-cliente-dogbot.jpg'}
+                      alt={item.product?.title || 'Produto'}
+                      style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {item.quantity}x {item.product?.title || 'Smart Pet Dogbot'}
+                      </div>
+                      <div style={{ fontSize: '0.74rem', color: '#059669', fontWeight: 700 }}>
+                        R$ {(item.product?.price * item.quantity).toFixed(2).replace('.', ',')}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+                  <img src="/img/foto-real-cliente-dogbot.jpg" alt="Smart Pet Dogbot" style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }} />
+                  <div>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>
+                      Smart Pet Dogbot (Caixa Original)
+                    </div>
+                    <div style={{ fontSize: '0.74rem', color: '#059669', fontWeight: 700 }}>
+                      Total Pago: R$ {Number(amount).toFixed(2).replace('.', ',')} • Frete Grátis
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="tracking-actions">

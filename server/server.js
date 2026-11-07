@@ -29,16 +29,36 @@ async function startServer() {
     app.use(cors());
     app.use(express.json());
 
-    // Servir pasta de imagens reais do produto (/img) e estáticos
-    app.use('/img', express.static(path.join(rootDir, 'img')));
-    app.use(express.static(rootDir));
+    const distDir = path.join(rootDir, 'dist');
+    const distIndex = path.join(distDir, 'index.html');
 
-    // Rotas de favicon
-    app.get('/favicon.svg', (req, res) => res.sendFile(path.join(rootDir, 'favicon.svg')));
-    app.get('/favicon.ico', (req, res) => res.sendFile(path.join(rootDir, 'favicon.svg')));
+    // Servir pasta de imagens reais do produto (/img) e estáticos compilados (dist)
+    app.use('/img', express.static(path.join(rootDir, 'img')));
+    app.use(express.static(path.join(rootDir, 'public'), { index: false }));
+    if (fs.existsSync(distDir)) {
+        app.use(express.static(distDir));
+    }
+    app.use(express.static(rootDir, { index: false }));
+
+    // Rotas de favicon e ícones oficiais
+    app.get('/favicon.png', (req, res) => {
+        res.setHeader('Content-Type', 'image/png');
+        res.sendFile(path.join(rootDir, 'favicon.png'));
+    });
+    app.get('/favicon.ico', (req, res) => {
+        res.setHeader('Content-Type', 'image/x-icon');
+        res.sendFile(path.join(rootDir, 'favicon.ico'));
+    });
+    app.get('/favicon.svg', (req, res) => {
+        res.setHeader('Content-Type', 'image/png');
+        res.sendFile(path.join(rootDir, 'favicon.png'));
+    });
 
     // Rota explícita da página principal
     app.get('/', (req, res) => {
+        if (fs.existsSync(distIndex)) {
+            return res.sendFile(distIndex);
+        }
         res.sendFile(path.join(rootDir, 'index.html'));
     });
 
@@ -48,7 +68,7 @@ async function startServer() {
      */
     app.post('/api/payment/pix', async (req, res) => {
         try {
-            const { amount, description, client, address } = req.body;
+            const { amount, description, client, address, items } = req.body;
 
             if (!amount || !client || !client.name || !client.cpf) {
                 return res.status(400).json({
@@ -65,7 +85,7 @@ async function startServer() {
             // 1. Gera a solicitação na SyncPay
             const syncResponse = await syncpayService.createCashIn({
                 amount,
-                description: description || 'Presente de Natal - Cachorro Robô Inteligente Smart Pet Dogbot',
+                description: description || 'Presente de Natal - Brinquedos Robóticos Inteligentes',
                 client
             });
 
@@ -88,6 +108,7 @@ async function startServer() {
                 amount,
                 client,
                 address,
+                items: items || [],
                 trackingCode,
                 status: 'pending', // pending | paid | cancelled
                 createdAt: new Date().toISOString()
@@ -139,6 +160,7 @@ async function startServer() {
             trackingCode: order.trackingCode,
             client: order.client,
             address: order.address,
+            items: order.items || [],
             amount: order.amount
         });
     });
@@ -201,21 +223,18 @@ async function startServer() {
         }
     });
 
-    // Servir arquivos no modo Produção ou integrar Vite HMR em Desenvolvimento
-    if (process.env.NODE_ENV === 'production') {
-        const distDir = path.join(rootDir, 'dist');
+    // Servir arquivos compilados (dist) ou integrar Vite HMR em Desenvolvimento
+    if (process.env.NODE_ENV === 'production' || fs.existsSync(distIndex)) {
         if (fs.existsSync(distDir)) {
             app.use(express.static(distDir));
         }
-        app.use(express.static(rootDir));
         app.get('*', (req, res) => {
-            const distIndex = path.join(distDir, 'index.html');
             if (fs.existsSync(distIndex)) {
                 return res.sendFile(distIndex);
             }
             res.sendFile(path.join(rootDir, 'index.html'));
         });
-        console.log('📦 Servindo aplicação em modo de PRODUÇÃO.');
+        console.log('📦 Servindo aplicação em modo de PRODUÇÃO (dist compilado).');
     } else {
         // Integrar Vite (React HMR) em modo desenvolvimento
         try {
