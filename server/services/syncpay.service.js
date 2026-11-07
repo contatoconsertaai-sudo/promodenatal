@@ -77,7 +77,7 @@ class SyncPayService {
         try {
             const payload = {
                 amount: Number(amount),
-                description: description || 'Presente de Natal - Cachorro Robô Inteligente Smart Pet Dogbot',
+                description: description || 'Pedido Oficial Brinkids Store - Promoção de Natal',
                 webhook_url: config.webhookUrl || undefined,
                 client: {
                     name: client.name,

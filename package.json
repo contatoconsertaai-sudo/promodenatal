@@ -1,8 +1,8 @@
 {
-  "name": "ofertas-syncpay-app",
-  "version": "2.0.0",
+  "name": "brinkids-store-syncpay",
+  "version": "2.1.0",
   "private": true,
-  "description": "Aplicação Oficial de Ofertas Smart Pet Dogbot integrada com Gateway SyncPay (React + Node.js)",
+  "description": "Loja Oficial Brinkids Store integrada com Gateway SyncPay (React + Node.js)",
   "scripts": {
     "dev": "node server/server.js",
     "start": "node server/server.js",

@@ -53,10 +53,10 @@ const TESTIMONIALS = [
 
 export default function Testimonials() {
   return (
-    <section style={{ maxWidth: '1240px', margin: '40px auto', padding: '0 16px' }}>
+    <section style={{ maxWidth: '1260px', margin: '40px auto', padding: '0 16px' }}>
       <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-        <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0f172a', margin: '0 0 8px' }}>
-          Quem comprou, aprovou
+        <h2 className="section-heading-responsive" style={{ fontSize: '1.6rem', fontWeight: 900, color: '#7f1d1d', margin: '0 0 8px' }}>
+          🎄 Quem comprou, aprovou
         </h2>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <span style={{ color: '#eab308', fontSize: '1.1rem', letterSpacing: '2px' }}>★★★★★</span>
@@ -66,13 +66,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '20px'
-        }}
-      >
+      <div className="testimonials-grid">
         {TESTIMONIALS.map((t, idx) => (
           <div
             key={idx}
@@ -80,8 +74,8 @@ export default function Testimonials() {
               background: '#ffffff',
               borderRadius: '16px',
               padding: '20px',
-              border: '1px solid #e2e8f0',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+              border: '1.5px solid #fecaca',
+              boxShadow: '0 4px 12px rgba(185, 28, 28, 0.04)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',

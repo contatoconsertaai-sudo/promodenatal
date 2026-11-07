@@ -78,9 +78,9 @@ class TikTokEventsService {
                         content_type: 'product',
                         contents: [
                             {
-                                content_id: 'smartpet-dogbot-99',
+                                content_id: 'brinkids-natal',
                                 content_type: 'product',
-                                content_name: 'Cachorro Robô Inteligente Smart Pet Dogbot - Promoção de Natal',
+                                content_name: 'Brinquedo Educativo Brinkids Store - Promoção de Natal',
                                 quantity: 1,
                                 price: Number(value)
                             }

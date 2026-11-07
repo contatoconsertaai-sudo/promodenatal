@@ -21,30 +21,33 @@ export default function ProductCard({
 
   return (
     <div
+      className="store-product-card"
       onClick={() => onOpenDetails(product)}
       style={{
         background: '#ffffff',
-        borderRadius: '16px',
+        borderRadius: '18px',
         overflow: 'hidden',
-        border: '1px solid #e2e8f0',
+        border: '1.5px solid #fecaca',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         cursor: 'pointer',
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
         position: 'relative'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.08)';
+        e.currentTarget.style.boxShadow = '0 14px 28px rgba(185, 28, 28, 0.12)';
+        e.currentTarget.style.borderColor = '#dc2626';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
         e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.borderColor = '#fecaca';
       }}
     >
-      {/* Imagem do Produto e Selos */}
-      <div style={{ position: 'relative', width: '100%', paddingTop: '100%', background: '#f8fafc', overflow: 'hidden' }}>
+      {/* Imagem do Produto e Selos de Natal */}
+      <div style={{ position: 'relative', width: '100%', paddingTop: '100%', background: '#fffafa', overflow: 'hidden' }}>
         <img
           src={product.primaryImage}
           alt={product.title}
@@ -60,40 +63,43 @@ export default function ProductCard({
           loading="lazy"
         />
 
-        {/* Badge de Desconto */}
+        {/* Badge de Desconto de Natal */}
         {product.discountBadge && (
           <div
+            className="store-card-badge-discount"
             style={{
               position: 'absolute',
               top: '10px',
               left: '10px',
-              background: '#ef4444',
-              color: '#ffffff',
+              background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+              color: '#fde047',
               fontSize: '0.72rem',
-              fontWeight: 800,
+              fontWeight: 900,
               padding: '4px 8px',
-              borderRadius: '6px',
-              boxShadow: '0 2px 6px rgba(239, 68, 68, 0.4)'
+              borderRadius: '8px',
+              border: '1px solid rgba(253, 224, 71, 0.6)',
+              boxShadow: '0 2px 8px rgba(220, 38, 38, 0.4)'
             }}
           >
-            {product.discountBadge}
+            🎄 {product.discountBadge}
           </div>
         )}
 
-        {/* Badge Especial (ex: #1 Mais Vendido) */}
+        {/* Badge Especial (ex: Campeão de Natal / Método Montessori) */}
         {product.badge && (
           <div
+            className="store-card-badge-bottom"
             style={{
               position: 'absolute',
               bottom: '10px',
               left: '10px',
-              background: 'rgba(15, 23, 42, 0.85)',
+              background: 'rgba(127, 29, 29, 0.9)',
               backdropFilter: 'blur(4px)',
               color: '#fef08a',
-              fontSize: '0.68rem',
-              fontWeight: 700,
+              fontSize: '0.66rem',
+              fontWeight: 800,
               padding: '3px 8px',
-              borderRadius: '4px'
+              borderRadius: '6px'
             }}
           >
             {product.badge}
@@ -102,21 +108,27 @@ export default function ProductCard({
       </div>
 
       {/* Conteúdo do Card */}
-      <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
+      <div className="store-card-body" style={{ padding: '14px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
         <div>
           {/* Estrelas e Avaliações */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '6px' }}>
-            <span style={{ color: '#eab308', fontSize: '0.82rem' }}>★★★★★</span>
-            <span style={{ fontSize: '0.74rem', color: '#64748b', fontWeight: 600 }}>
-              ({product.reviewsCount})
+          <div className="store-card-rating-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span className="store-card-stars" style={{ color: '#eab308', fontSize: '0.8rem' }}>★★★★★</span>
+              <span className="store-card-reviews" style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700 }}>
+                ({product.reviewsCount})
+              </span>
+            </div>
+            <span className="store-card-age-tag" style={{ fontSize: '0.66rem', color: '#991b1b', background: '#fff1f2', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>
+              {product.categoryLabel}
             </span>
           </div>
 
           {/* Título do Produto */}
           <h3
+            className="store-card-title"
             style={{
-              fontSize: '0.92rem',
-              fontWeight: 700,
+              fontSize: '0.9rem',
+              fontWeight: 800,
               color: '#0f172a',
               lineHeight: 1.35,
               margin: '0 0 8px',
@@ -130,77 +142,81 @@ export default function ProductCard({
             {product.title}
           </h3>
 
-          {/* Tag de Frete Grátis */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '10px' }}>
-            <span style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.7rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px' }}>
+          {/* Tag de Frete Grátis Natal */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+            <span className="store-card-frete-tag" style={{ background: '#dcfce7', color: '#15803d', fontSize: '0.68rem', fontWeight: 800, padding: '2px 7px', borderRadius: '4px' }}>
               ✓ FRETE GRÁTIS
             </span>
           </div>
 
           {/* Preços */}
-          <div style={{ marginBottom: '14px' }}>
+          <div className="store-card-price-box" style={{ marginBottom: '12px', background: '#fffafa', padding: '8px 10px', borderRadius: '10px', border: '1px dashed #fecaca' }}>
             {product.oldPrice && (
-              <span style={{ fontSize: '0.78rem', color: '#94a3b8', textDecoration: 'line-through', marginRight: '6px' }}>
+              <div className="store-card-old-price" style={{ fontSize: '0.74rem', color: '#94a3b8', textDecoration: 'line-through' }}>
                 De R$ {product.oldPrice.toFixed(2).replace('.', ',')}
-              </span>
+              </div>
             )}
-            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0284c7' }}>
-              R$ {product.price.toFixed(2).replace('.', ',')}
-              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#16a34a', marginLeft: '4px' }}>
-                no Pix
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', flexWrap: 'wrap' }}>
+              <span className="store-card-price" style={{ fontSize: '1.22rem', fontWeight: 900, color: '#15803d' }}>
+                R$ {product.price.toFixed(2).replace('.', ',')}
+              </span>
+              <span className="store-card-pix-pill" style={{ fontSize: '0.66rem', fontWeight: 800, color: '#dc2626', background: '#fef2f2', padding: '1px 5px', borderRadius: '4px' }}>
+                PIX
               </span>
             </div>
-            <div style={{ fontSize: '0.72rem', color: '#64748b' }}>
-              ou 12x de R$ {(product.price / 10).toFixed(2).replace('.', ',')}
+            <div className="store-card-installments" style={{ fontSize: '0.69rem', color: '#64748b', fontWeight: 600 }}>
+              3x de R$ {(product.price / 3).toFixed(2).replace('.', ',')} s/ juros
             </div>
           </div>
         </div>
 
-        {/* Botões de Ação */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {/* Botões de Ação Conectados à SyncPay */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <button
             type="button"
+            className="store-card-btn-buy"
             onClick={handleBuyNow}
             style={{
               width: '100%',
-              background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+              background: 'linear-gradient(135deg, #16a34a, #15803d)',
               color: '#ffffff',
               border: 'none',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              fontSize: '0.85rem',
+              padding: '10px 10px',
+              borderRadius: '10px',
+              fontSize: '0.82rem',
+              fontWeight: 900,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '4px',
+              boxShadow: '0 4px 10px rgba(22, 163, 74, 0.28)'
+            }}
+          >
+            <span>⚡ COMPRAR NO PIX</span>
+          </button>
+
+          <button
+            type="button"
+            className="store-card-btn-cart"
+            onClick={handleAddToCart}
+            style={{
+              width: '100%',
+              background: '#fff1f2',
+              color: '#991b1b',
+              border: '1px solid #fca5a5',
+              padding: '7px 10px',
+              borderRadius: '10px',
+              fontSize: '0.76rem',
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
-              boxShadow: '0 2px 6px rgba(2, 132, 199, 0.3)'
+              gap: '4px'
             }}
           >
-            <span>⚡ COMPRAR AGORA</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            style={{
-              width: '100%',
-              background: '#f1f5f9',
-              color: '#0f172a',
-              border: '1px solid #cbd5e1',
-              padding: '8px 14px',
-              borderRadius: '8px',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px'
-            }}
-          >
-            <span>🛒 Adicionar ao Carrinho</span>
+            <span>🎁 + Sacola</span>
           </button>
         </div>
       </div>

@@ -2,16 +2,9 @@ import React from 'react';
 
 export default function Footer({ onOpenTracking }) {
   return (
-    <footer style={{ background: '#0f172a', color: '#94a3b8', paddingTop: '48px', paddingBottom: '36px', marginTop: '64px' }}>
-      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 16px' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '36px',
-            marginBottom: '40px'
-          }}
-        >
+    <footer style={{ background: '#0f172a', color: '#94a3b8', paddingTop: '48px', paddingBottom: '36px', marginTop: '64px', textAlign: 'left' }}>
+      <div style={{ maxWidth: '1260px', margin: '0 auto', padding: '0 16px' }}>
+        <div className="store-footer-grid">
           {/* Coluna 1: Sobre & Logo */}
           <div>
             <div style={{ marginBottom: '16px' }}>
@@ -77,17 +70,12 @@ export default function Footer({ onOpenTracking }) {
             </h4>
             <div style={{ fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '1.2rem' }}>📱</span>
+                <span style={{ fontSize: '1.2rem' }}>🎅</span>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748b' }}>WhatsApp Oficial:</div>
-                  <a
-                    href="https://wa.me/5531972327905"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: '#4ade80', fontWeight: 800, textDecoration: 'none' }}
-                  >
-                    (31) 9 7232-7905
-                  </a>
+                  <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Assistente Virtual 24h:</div>
+                  <span style={{ color: '#4ade80', fontWeight: 800 }}>
+                    Chat Online Bia • Brinkids IA
+                  </span>
                 </div>
               </div>
 

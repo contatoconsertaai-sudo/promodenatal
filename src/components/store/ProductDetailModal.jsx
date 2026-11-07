@@ -57,7 +57,7 @@ export default function ProductDetailModal({ product, onClose, onBuyNow }) {
       }}
     >
       <div
-        className="modal-content"
+        className="modal-content product-detail-modal-box"
         onClick={(e) => e.stopPropagation()}
         style={{
           background: '#ffffff',
@@ -95,7 +95,7 @@ export default function ProductDetailModal({ product, onClose, onBuyNow }) {
           ✕
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+        <div className="product-detail-grid">
           {/* Coluna 1: Galeria de Imagens */}
           <div>
             <div
@@ -223,7 +223,7 @@ export default function ProductDetailModal({ product, onClose, onBuyNow }) {
             </div>
 
             {/* Botões de Ação */}
-            <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
+            <div className="product-detail-actions" style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
               <button
                 onClick={() => {
                   onClose();
@@ -231,7 +231,7 @@ export default function ProductDetailModal({ product, onClose, onBuyNow }) {
                 }}
                 style={{
                   flex: 1,
-                  background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+                  background: 'linear-gradient(135deg, #16a34a, #15803d)',
                   color: '#ffffff',
                   border: 'none',
                   padding: '14px',
@@ -239,7 +239,7 @@ export default function ProductDetailModal({ product, onClose, onBuyNow }) {
                   fontWeight: 900,
                   fontSize: '0.92rem',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(2,132,199,0.35)'
+                  boxShadow: '0 4px 12px rgba(22,163,74,0.35)'
                 }}
               >
                 ⚡ COMPRAR AGORA NO PIX

@@ -1,58 +1,24 @@
-# Manual do Chat Interativo de Suporte (FAQ Inteligente & Respostas Prontas)
+# 🎅 Manual do Assistente Inteligente: Bia • Brinkids IA (Especial de Natal)
 
-Este documento descreve o funcionamento, a personalização de perguntas e respostas e a integração com o checkout Pix do **Chat de Suporte ao Cliente** implementado na loja do **Smart Pet Dogbot**.
-
----
-
-## 1. Visão Geral do Chat
-
-O chat de suporte foi desenvolvido para atender aos visitantes da loja em tempo real, eliminando qualquer dúvida ou insegurança antes de finalizar a compra natalina.
-
-### Principais Características:
-* **Posição Flutuante:** Fixo no canto inferior direito (`bottom: 82px; right: 20px`), acima da barra CTA fixa, visível em desktops, tablets e smartphones.
-* **Badge de Notificação:** Ponto pulsante verde indicando atendente online e badge vermelho com contador de mensagem não lida.
-* **Pílulas de Perguntas Frequentes (FAQ Chips):** O cliente clica em 1 botão e recebe a resposta imediata com simulação humanizada de digitação.
-* **Respostas Inteligentes com Gatilho de Venda (CTA):** Cada resposta do chat traz um botão de conversão (ex: `[🎁 Garantir Meu Dogbot de Natal]`) que abre o formulário e gera o Pix direto na tela.
-* **Reconhecimento de Palavras-Chave:** Se o cliente preferir digitar, o sistema identifica palavras-chave (*prazo*, *entrega*, *natal*, *pix*, *rastreio*, *garantia*, *bateria*, *idade*) e responde instantaneamente.
+Este documento descreve o funcionamento do novo Chatbot Inteligente da **Brinkids Store** (`src/components/SupportChat.jsx`).
 
 ---
 
-## 2. Catálogo de Perguntas Rápidas (FAQ)
-
-| Chip / Botão | Pergunta do Cliente | Resposta Automatizada | Botão de Ação (CTA) |
-| :--- | :--- | :--- | :--- |
-| **🚚 Prazo de Entrega** | *Qual é o prazo de entrega? Chega antes do Natal?* | Envio prioritário de **7 a 14 dias úteis** com entrega garantida antes do Natal para todo o Brasil. Código de rastreio oficial emitido na hora pós-pagamento. | `🎁 Garantir Meu Presente de Natal` |
-| **💳 Pix R$ 99,90** | *Como funciona o pagamento de R$ 99,90 no Pix?* | Pagamento 100% seguro via Pix processado pela SyncPay com **67% de desconto** (de R$ 299,90 por R$ 99,90). QR Code gerado em tempo real e aprovado em até 3 segundos. | `⚡ Comprar no Pix por R$ 99,90` |
-| **📦 Código de Rastreio** | *Como recebo meu código de rastreio?* | A própria página atualiza e abre a **Página Oficial de Rastreio** com o código dos Correios (ex: `XP849201745BR`) e o endereço de entrega na mesma hora que o Pix é pago. | `🔍 Ir para o Checkout` |
-| **🤖 O que ele faz?** | *O que o Smart Pet Dogbot faz?* | Comandos de voz, kung fu, dança, imita fazer xixi, late, toca músicas, olhos de LED expressivos. Opera por controle 2.4GHz (25m de alcance) e aplicativo Bluetooth. | `🐾 Quero o Meu Dogbot` |
-| **🎁 O que vem na caixa?** | *O que vem dentro da embalagem original?* | Caixa original reforçada para presente com: Robô Smart Pet (31x16x19,5cm), Controle 2.4GHz, Bateria de lítio, Cabo USB-C e Manual em Português. | `📦 Pedir com Caixa Original` |
-| **🛡️ Garantia** | *O produto tem garantia?* | **Garantia incondicional de 30 dias**. Se não gostar por qualquer motivo, devolução de 100% do dinheiro sem burocracia. | `🛡️ Comprar com Garantia Total` |
+## 1. Identidade e Visual Natalino
+- **Nome da Assistente:** **Bia • Brinkids IA** (Consultora de Presentes & Suporte Online).
+- **Design de Natal:** Cabeçalho com gradiente vermelho natalino (`#991b1b` -> `#dc2626`), borda dourada (`#fde047`), indicador online verde em tempo real e botão flutuante temático `🎅 Ajuda Brinkids • Natal`.
 
 ---
 
-## 3. Estrutura dos Arquivos no Código
+## 2. Inteligência de Recomendação e Busca nos 102 Produtos
+Diferente de um chat estático comum, a **Bia** está conectada diretamente ao banco de dados de **102 produtos** (`src/data/products.js`):
 
-* **[`src/components/SupportChat.jsx`](file:///c:/Users/Pichau/Desktop/Ofertas/src/components/SupportChat.jsx):**  
-  Componente React moderno com estado dinâmico de conversa, rolagem automática e integração direta com o modal de pagamento do Pix (`onOpenCheckout`).
-* **[`src/components/ProductOffer.jsx`](file:///c:/Users/Pichau/Desktop/Ofertas/src/components/ProductOffer.jsx):**  
-  Renderiza o componente do chat integrado à página principal React.
-* **[`index.html`](file:///c:/Users/Pichau/Desktop/Ofertas/index.html) e [`Page exemplo oferta .html`](file:///c:/Users/Pichau/Desktop/Ofertas/Page%20exemplo%20oferta%20.html):**  
-  Implementação em HTML5 e Vanilla JS nativo para compatibilidade imediata com execuções estáticas e servidores web.
-
----
-
-## 4. Como Adicionar Novas Perguntas ou Alterar Respostas
-
-Para adicionar ou alterar uma resposta pronta no componente React ([`SupportChat.jsx`](file:///c:/Users/Pichau/Desktop/Ofertas/src/components/SupportChat.jsx)), edite o array `FAQ_LIST`:
-
-```javascript
-{
-  id: 'minha_duvida',
-  chip: '❓ Minha Pergunta',
-  question: 'Texto da pergunta que o cliente envia?',
-  answer: 'Texto da resposta que a atendente virtual responderá...',
-  cta: '👉 Botão de Ação Rápida'
-}
-```
-No arquivo HTML (`index.html`), basta adicionar a mesma chave no objeto `chatFaqs` dentro da tag `<script>`.
-
+1. **Consultor de Presentes por Idade:**
+   - Botões interativos dentro da conversa (`👶 0 a 12 meses`, `🧸 1 a 2 anos`, `🎨 2 a 3 anos`, `🚀 3 a 4 anos`, `🌟 + de 4 anos`) que exibem imediatamente os brinquedos ideais para aquela faixa etária.
+2. **Busca Natural por Palavra-Chave:**
+   - Se o cliente digitar qualquer termo livre (ex: *"quero uma câmera que imprime foto"*, *"tem bebê reborn?"*, *"livro de inglês"*, *"presente até 100 reais"*, *"pista de dinossauro"*), a IA analisa o catálogo de 102 produtos e retorna **Cards Interativos de Produtos** dentro do balão de mensagem.
+3. **Compra Direta no Pix dentro do Chat:**
+   - Cada produto recomendado pela IA no chat possui foto, preço promocional no Pix, selo de desconto e o botão **`⚡ Comprar no Pix`**, que abre imediatamente o modal da **SyncPay** já configurado com aquele produto.
+   - Também possui o botão **`Ver +`** para abrir a galeria de fotos e especificações completas sem sair da página.
+4. **Respostas Automáticas de Suporte:**
+   - Responde dúvidas sobre Prazo de Entrega (7 a 14 dias úteis), Frete Grátis, Código de Rastreio dos Correios, pagamento Pix via SyncPay e Garantia de 30 dias.

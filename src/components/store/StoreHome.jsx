@@ -32,15 +32,24 @@ export default function StoreHome() {
   const [confirmedOrder, setConfirmedOrder] = useState(null);
   const [toast, setToast] = useState(null);
 
-  // Prova Social em Tempo Real (Toasts automáticos Brinkids)
+  // Garante título e favicon oficiais da Brinkids na aba do navegador (substitui qualquer cache antigo)
+  useEffect(() => {
+    document.title = 'Brinkids — Brinquedos Educativos e Pedagógicos Infantis';
+    const iconLinks = document.querySelectorAll("link[rel*='icon']");
+    iconLinks.forEach((link) => {
+      link.href = '/favicon.png?v=brinkids2026';
+    });
+  }, []);
+
+  // Prova Social em Tempo Real (Toasts de Natal Brinkids)
   useEffect(() => {
     const buyerNames = [
       'Mariana S.', 'Carlos E.', 'Fernanda L.', 'Juliana R.',
-      'Rafael S.', 'Camila M.', 'Patricia B.', 'Rodrigo A.'
+      'Rafael S.', 'Camila M.', 'Patricia B.', 'Rodrigo A.', 'Aline F.'
     ];
     const buyerCities = [
       'São Paulo, SP', 'Rio de Janeiro, RJ', 'Belo Horizonte, MG',
-      'Curitiba, PR', 'Brasília, DF', 'Campinas, SP', 'Porto Alegre, RS'
+      'Curitiba, PR', 'Brasília, DF', 'Campinas, SP', 'Porto Alegre, RS', 'Florianópolis, SC'
     ];
 
     const triggerToast = () => {
@@ -53,7 +62,7 @@ export default function StoreHome() {
     };
 
     const firstTimer = setTimeout(triggerToast, 3500);
-    const interval = setInterval(triggerToast, 16000);
+    const interval = setInterval(triggerToast, 15000);
     return () => {
       clearTimeout(firstTimer);
       clearInterval(interval);
@@ -62,7 +71,7 @@ export default function StoreHome() {
 
   // Handler para compra direta ("COMPRAR AGORA")
   const handleOpenDirectCheckout = (product) => {
-    setCheckoutTarget(product);
+    setCheckoutTarget(product || PRODUCTS[0]);
     setIsCheckoutOpen(true);
   };
 
@@ -77,7 +86,7 @@ export default function StoreHome() {
   if (confirmedOrder) {
     return (
       <OrderTrackingPage
-        orderInfo={confirmedOrder}
+        orderData={confirmedOrder}
         onBackToStore={() => {
           setConfirmedOrder(null);
           clearCart();
@@ -88,8 +97,8 @@ export default function StoreHome() {
   }
 
   return (
-    <div className="store-home-page" style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a' }}>
-      {/* Barra de Navegação */}
+    <div className="store-home-page" style={{ minHeight: '100vh', background: '#fffafa', color: '#0f172a' }}>
+      {/* Barra de Navegação Natalina */}
       <Navbar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -97,7 +106,7 @@ export default function StoreHome() {
         setSelectedCategory={setSelectedCategory}
       />
 
-      {/* Banner Principal & Destaques de Confiança */}
+      {/* Banner Principal & Destaques de Natal */}
       <HeroBanner />
 
       {/* Categorias por Idade (Escolha o presente ideal) */}
@@ -110,7 +119,7 @@ export default function StoreHome() {
         }}
       />
 
-      {/* Catálogo de Produtos e Grade */}
+      {/* Catálogo de 102 Produtos Conectados à SyncPay */}
       <ProductGrid
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -123,10 +132,10 @@ export default function StoreHome() {
       {/* Quem comprou, aprovou (Depoimentos Verificados) */}
       <Testimonials />
 
-      {/* Por Que Comprar Conosco? (Diferenciais) */}
+      {/* Por Que Comprar Conosco Neste Natal? */}
       <WhyBuyWithUs />
 
-      {/* Um Pouco Sobre Nós & Newsletter */}
+      {/* Um Pouco Sobre Nós & Cupom de Natal */}
       <AboutUs />
 
       {/* Rodapé Oficial da Brinkids */}
@@ -134,8 +143,9 @@ export default function StoreHome() {
         onOpenTracking={() => {
           setConfirmedOrder({
             trackingCode: 'XP849201948BR',
-            clientName: 'Cliente Brinkids',
+            client: { name: 'Cliente Brinkids' },
             address: { street: 'Av. Paulista', number: '1000', city: 'São Paulo', state: 'SP' },
+            amount: 149.90,
             items: [{ title: 'Livro Falante Bilíngue™', price: 149.90, quantity: 1 }]
           });
         }}
@@ -153,7 +163,7 @@ export default function StoreHome() {
       {/* Gaveta Lateral do Carrinho */}
       <CartDrawer onCheckoutCart={handleOpenCartCheckout} />
 
-      {/* Modal de Checkout Pix SyncPay (Unificado) */}
+      {/* Modal de Checkout Pix SyncPay (Unificado para os 102 produtos ou Sacola) */}
       <PixModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
@@ -167,10 +177,13 @@ export default function StoreHome() {
         }}
       />
 
-      {/* Chat Interativo de Suporte Brinkids */}
-      <SupportChat onOpenCheckout={() => handleOpenDirectCheckout(PRODUCTS[0])} />
+      {/* Assistente Inteligente Bia • Brinkids IA */}
+      <SupportChat
+        onOpenCheckout={(prod) => handleOpenDirectCheckout(prod || PRODUCTS[0])}
+        onOpenDetails={(prod) => setSelectedProductForModal(prod)}
+      />
 
-      {/* Toast de Prova Social em Tempo Real */}
+      {/* Toast de Prova Social Natalina em Tempo Real */}
       {toast && (
         <div
           className="toast-container"
@@ -187,12 +200,13 @@ export default function StoreHome() {
             style={{
               background: '#ffffff',
               padding: '12px 16px',
-              borderRadius: '12px',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.12)',
+              borderRadius: '14px',
+              boxShadow: '0 10px 25px rgba(153, 27, 27, 0.15)',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              borderLeft: '4px solid #0284c7',
+              borderLeft: '4px solid #dc2626',
+              border: '1px solid #fecaca',
               maxWidth: '340px'
             }}
           >
@@ -203,9 +217,9 @@ export default function StoreHome() {
             />
             <div>
               <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.82rem' }}>
-                {toast.name} ({toast.city})
+                🎄 {toast.name} ({toast.city})
               </div>
-              <div style={{ color: '#0284c7', fontWeight: 700, fontSize: '0.74rem' }}>
+              <div style={{ color: '#15803d', fontWeight: 800, fontSize: '0.74rem' }}>
                 Garantiu {toast.product.title.slice(0, 26)}... no Pix!
               </div>
             </div>

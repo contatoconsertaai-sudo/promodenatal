@@ -88,7 +88,7 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
               <div className="timeline-step done">
                 <div className="timeline-dot">✓</div>
                 <div className="timeline-info">
-                  <strong>Pagamento PIX Confirmado (R$ 99,90)</strong>
+                  <strong>Pagamento PIX Confirmado (R$ {Number(amount).toFixed(2).replace('.', ',')})</strong>
                   <span>Aprovado via Gateway SyncPay • {formattedDate}</span>
                 </div>
               </div>
@@ -104,8 +104,8 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
               <div className="timeline-step current">
                 <div className="timeline-dot pulse">📦</div>
                 <div className="timeline-info">
-                  <strong>Em Separação Prioritária — Lote de Natal</strong>
-                  <span>Seu Smart Pet Dogbot na Caixa Original está sendo embalado para despacho expresso.</span>
+                  <strong>Em Separação Prioritária — Lote de Natal Brinkids</strong>
+                  <span>Seu pedido Brinkids está sendo embalado com carinho para despacho expresso.</span>
                 </div>
               </div>
 
@@ -165,13 +165,13 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
                 orderInfo.items.map((item, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
                     <img
-                      src={item.product?.primaryImage || '/img/foto-real-cliente-dogbot.jpg'}
-                      alt={item.product?.title || 'Produto'}
+                      src={item.product?.primaryImage || '/favicon.png'}
+                      alt={item.product?.title || 'Produto Brinkids'}
                       style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {item.quantity}x {item.product?.title || 'Smart Pet Dogbot'}
+                        {item.quantity}x {item.product?.title || 'Brinquedo Educativo Brinkids'}
                       </div>
                       <div style={{ fontSize: '0.74rem', color: '#059669', fontWeight: 700 }}>
                         R$ {(item.product?.price * item.quantity).toFixed(2).replace('.', ',')}
@@ -181,10 +181,10 @@ export default function OrderTrackingPage({ orderData, onBackToStore }) {
                 ))
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
-                  <img src="/img/foto-real-cliente-dogbot.jpg" alt="Smart Pet Dogbot" style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }} />
+                  <img src="/favicon.png" alt="Brinkids Store" style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }} />
                   <div>
                     <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>
-                      Smart Pet Dogbot (Caixa Original)
+                      Pedido Oficial Brinkids Store
                     </div>
                     <div style={{ fontSize: '0.74rem', color: '#059669', fontWeight: 700 }}>
                       Total Pago: R$ {Number(amount).toFixed(2).replace('.', ',')} • Frete Grátis

@@ -1,73 +1,39 @@
-# Manual da Loja Multi-Produtos: Smart Pet Store
+# 🎄 Catálogo Oficial Multiprodutos — Brinkids Store (102 Produtos)
 
-Este documento descreve a estrutura de catálogo, carrinho inteligente e checkout dinâmico via **Sync Payments (Pix)** da loja multi-produtos **Smart Pet Brasil**.
-
----
-
-## 1. Catálogo Oficial de Brinquedos Robóticos
-
-O catálogo está centralizado no arquivo [`src/data/products.js`](file:///c:/Users/Pichau/Desktop/Ofertas/src/data/products.js):
-
-| ID | Nome do Produto | Categoria | Preço De | Preço Pix | Destaques |
-| :--- | :--- | :--- | :---: | :---: | :--- |
-| `dogbot` | **Cachorro Robô Smart Pet Dogbot** | `pets` | R$ 299,90 | **R$ 99,90** | Voz em PT-BR, app Bluetooth, dança, kung fu, late |
-| `trex` | **Dinossauro Robô Cyber T-Rex** | `dinossauros` | R$ 349,90 | **R$ 139,90** | Solta vapor com LED azul, rugido, controle 2.4GHz |
-| `kitty` | **Gatinha Robô Smart Kitty Miau** | `pets` | R$ 269,90 | **R$ 89,90** | Segue a mão via infravermelho, ronrona, olhos LED |
-| `owl` | **Coruja Robótica Smart Owl** | `aves` | R$ 229,90 | **R$ 79,90** | Repete vozes moduladas, bate asas, olhos luminosos |
-| `drone` | **Mini Drone UFO Pet Anticolisão** | `voadores` | R$ 249,90 | **R$ 89,90** | Voo por indução manual, acrobacias 360°, LEDs |
+Este documento registra a importação integral de **todos os 102 produtos** da coleção oficial `https://brinkidstore.com/collections/all`, todos conectados de ponta a ponta ao gateway de pagamento **SyncPay** (`POST /api/payment/pix`).
 
 ---
 
-## 2. Arquitetura do Carrinho Inteligente (`CartContext`)
-
-O estado global do carrinho é gerenciado pelo componente [`src/context/CartContext.jsx`](file:///c:/Users/Pichau/Desktop/Ofertas/src/context/CartContext.jsx):
-
-* **Persistência Automática:** Salvo no `localStorage` do navegador para o cliente não perder os itens se recarregar a página.
-* **Barra de Progresso de Brinde:** Incentiva o aumento do ticket médio (ao atingir R$ 180,00 ativa o selo de *"Brinde Exclusivo de Natal"*).
-* **Dois Fluxos de Compra:**
-  1. **Compra Direta (1 Clique):** Ao clicar em *"⚡ COMPRAR AGORA"*, o checkout abre imediatamente para aquele item com frete expresso.
-  2. **Compra via Carrinho:** Ao clicar em *"🛒 + Carrinho"*, o cliente pode somar múltiplos produtos e pagar todos em um único Pix!
+## 1. Resumo da Importação (`/collections/all`)
+- **Fonte Oficial:** `https://brinkidstore.com/collections/all` (Páginas 1 a 7 completas).
+- **Total de Produtos Ativos:** **102 produtos únicos** em estoque (`src/data/products.js`).
+- **Preços e Descontos Reais:** Extraídos diretamente das tags de preço promocional e preço original da Brinkids Store, com cálculo automático da porcentagem de desconto (`% OFF`).
+- **Imagens Oficiais:** URLs da CDN da Brinkids em alta resolução (`width=600`), incluindo imagem principal e galeria secundária.
 
 ---
 
-## 3. Checkout Dinâmico SyncPay Multi-Itens
+## 2. Filtros Inteligentes e Categorização
+Todos os 102 produtos podem ser filtrados instantaneamente na vitrine (`src/components/store/ProductGrid.jsx`) por:
 
-O backend Express ([`server/server.js`](file:///c:/Users/Pichau/Desktop/Ofertas/server/server.js)) recebe a requisição `POST /api/payment/pix` com:
-```json
-{
-  "amount": 239.80,
-  "description": "Smart Pet Store: Dogbot (x1), Cyber T-Rex (x1)",
-  "items": [
-    { "id": "dogbot", "name": "Cachorro Robô Smart Pet Dogbot", "price": 99.90, "quantity": 1 },
-    { "id": "trex", "name": "Dinossauro Robô Cyber T-Rex", "price": 139.90, "quantity": 1 }
-  ],
-  "client": { "name": "...", "cpf": "...", "email": "...", "phone": "..." },
-  "address": { "cep": "...", "street": "...", "number": "...", "city": "...", "state": "..." }
-}
-```
+### 2.1 Faixa Etária (`AgeCategories.jsx`)
+- `0-6 meses` (Linha Baby, mordedores, tapetes sensoriais, cuidados)
+- `6-12 meses` (Brinquedos musicais, engatinhar, alimentação em silicone)
+- `1 ano` (Coordenação motora, equilíbrio, encaixe, troninhos)
+- `2 anos` (Método Montessori, Livro Falante Bilíngue, Fale Inglês, Árvore de Natal Montessori)
+- `3 anos` (Câmeras infantis, pistas de carrinhos, barracas, cozinhas, Bebê Reborn)
+- `+ 4 anos` (Blocos magnéticos, Caneta 3D, carros de controle remoto, conjuntos e pijamas)
 
-* **Geração de Rastreio Unificado:** O servidor gera **1 Código de Rastreio Oficial dos Correios** (ex: `XP849201745BR`) que abrange toda a remessa do pedido.
-* **Página de Rastreio Pós-Pagamento:** Exibe todos os itens do pedido com foto, quantidade, valor individual e endereço de entrega confirmado.
-
----
-
-## 4. Rastreamento Avançado de Conversão (TikTok Events API)
-
-Ao iniciar o checkout ou concluir o pagamento Pix, a lista completa de produtos é enviada ao TikTok Ads:
-```json
-"contents": [
-  { "content_id": "dogbot", "content_type": "product", "quantity": 1, "price": 99.90 },
-  { "content_id": "trex", "content_type": "product", "quantity": 1, "price": 139.90 }
-]
-```
-Isso permite calcular o **ROAS real** de campanhas de tráfego pago no TikTok Ads.
+### 2.2 Temas Rápidos (`QUICK_THEMES`)
+- 🎄 **Todos os Produtos (102)**
+- 🧠 **Montessori & Educativos**
+- 🎵 **Musicais & Interativos**
+- 🚗 **Carrinhos, Pistas & Dinossauros**
+- 📸 **Câmeras, Bonecas & Criativos**
+- 👶 **Bebês, Alimentação & Cuidados**
+- 👗 **Roupas, Pijamas & Fantasias**
 
 ---
 
-## 5. Como Adicionar Novos Produtos no Futuro
-
-Para cadastrar um 6º ou 7º produto:
-1. Abra [`src/data/products.js`](file:///c:/Users/Pichau/Desktop/Ofertas/src/data/products.js).
-2. Adicione um novo objeto no array `PRODUCTS` com `id`, `title`, `price`, `images`, `features` e `specs`.
-3. A vitrine, filtros de categoria, busca e carrinho atualizarão automaticamente!
-
+## 3. Integração Total com SyncPay
+- Cada um dos 102 produtos possui botão **⚡ COMPRAR AGORA NO PIX** (que abre o checkout direto daquele produto) e botão **🎁 Adicionar à Sacola** (permitindo comprar múltiplos produtos em uma única cobrança Pix consolidada).
+- O valor dinâmico (`amount`), título e lista de itens são enviados para `POST /api/payment/pix`, gerando o QR Code oficial e liberando o código de rastreio assim que pago.

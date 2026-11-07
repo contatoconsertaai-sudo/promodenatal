@@ -92,9 +92,9 @@ export default function PixModal({
                     price: i.product.price
                   }))
                 : [{
-                    content_id: product?.id || 'smartpet-dogbot-99',
+                    content_id: product?.id || 'brinkids-item',
                     content_type: 'product',
-                    content_name: product?.title || 'Smart Pet Dogbot',
+                    content_name: product?.title || 'Brinquedo Educativo Brinkids',
                     quantity: 1,
                     price: product?.price || 99.90
                   }];
@@ -189,16 +189,16 @@ export default function PixModal({
         }))
       : [
           {
-            id: product?.id || 'dogbot',
-            name: product?.title || 'Smart Pet Dogbot',
+            id: product?.id || 'brinkids-item',
+            name: product?.title || 'Brinquedo Educativo Brinkids',
             price: product?.price || 99.90,
             quantity: 1
           }
         ];
 
     const description = isCartCheckout
-      ? `Smart Pet Store: ${cartItems.map((i) => `${i.product.title} (x${i.quantity})`).join(', ')}`.slice(0, 120)
-      : (product?.title || 'Smart Pet Dogbot');
+      ? `Brinkids Store: ${cartItems.map((i) => `${i.product.title} (x${i.quantity})`).join(', ')}`.slice(0, 120)
+      : (product?.title || 'Pedido Brinkids Store');
 
     try {
       const response = await createPixOrder({
@@ -228,9 +228,9 @@ export default function PixModal({
             }))
           : [
               {
-                content_id: product?.id || 'smartpet-dogbot-99',
+                content_id: product?.id || 'brinkids-item',
                 content_type: 'product',
-                content_name: product?.title || 'Smart Pet Dogbot',
+                content_name: product?.title || 'Brinquedo Educativo Brinkids',
                 quantity: 1,
                 price: product?.price || 99.90
               }
@@ -304,10 +304,10 @@ export default function PixModal({
                 </div>
               ) : (
                 <>
-                  <img src={product?.primaryImage || product?.imageUrl || '/img/foto-real-cliente-dogbot.jpg'} alt={product?.title} />
+                  <img src={product?.primaryImage || product?.imageUrl || '/favicon.png'} alt={product?.title} />
                   <div>
                     <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a' }}>
-                      {product?.title || 'Smart Pet Dogbot'}
+                      {product?.title || 'Brinquedo Educativo Brinkids'}
                     </div>
                     <div style={{ fontSize: '0.82rem', color: '#059669', fontWeight: 800 }}>
                       Valor Único no PIX: R$ {currentTotal.toFixed(2).replace('.', ',')} • Frete Grátis Expresso

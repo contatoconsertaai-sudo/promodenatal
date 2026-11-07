@@ -10,52 +10,41 @@ export default function Navbar({
   const { totalItems, setIsCartOpen } = useCart();
 
   return (
-    <header className="store-header" style={{ position: 'sticky', top: 0, zIndex: 100, background: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-      {/* Top Banner Brinkids Black Friday */}
-      <div
-        style={{
-          background: '#0ea5e9',
-          color: '#ffffff',
-          padding: '8px 16px',
-          fontSize: '0.8rem',
-          fontWeight: 700,
-          textAlign: 'center',
-          letterSpacing: '0.3px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '8px',
-          flexWrap: 'wrap'
-        }}
-      >
-        <span>⚡ BLACK FRIDAY:</span>
-        <span style={{ background: '#fef08a', color: '#0f172a', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>
-          CUPOM BLACK10 = 10% OFF
+    <header
+      className="store-header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        background: '#ffffff',
+        boxShadow: '0 4px 16px rgba(153, 27, 27, 0.08)',
+        borderBottom: '2px solid #fecaca'
+      }}
+    >
+      {/* Top Banner Promoção de Natal Brinkids */}
+      <div className="store-top-bar">
+        <span>🎅 PROMOÇÃO DE NATAL BRINKIDS:</span>
+        <span
+          style={{
+            background: '#fde047',
+            color: '#991b1b',
+            padding: '2px 8px',
+            borderRadius: '6px',
+            fontSize: '0.73rem',
+            fontWeight: 900,
+            boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+          }}
+        >
+          ATÉ 52% OFF NO PIX IMEDIATO
         </span>
-        <span>•</span>
-        <span>🚚 Frete Grátis para todo o Brasil</span>
+        <span className="store-top-bar-extra">• 🎄 Frete Grátis para Todo o Brasil</span>
       </div>
 
-      {/* Barra Principal */}
-      <div
-        style={{
-          maxWidth: '1240px',
-          margin: '0 auto',
-          padding: '12px 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px'
-        }}
-      >
-        {/* Logo Brinkids */}
+      {/* Barra Principal Responsiva */}
+      <div className="store-navbar-inner">
+        {/* Logo Brinkids + Selo Natal */}
         <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer',
-            userSelect: 'none'
-          }}
+          className="store-logo-box"
           onClick={() => {
             setSelectedCategory('all');
             setSearchTerm('');
@@ -65,53 +54,63 @@ export default function Navbar({
           <img
             src="/logo-brinkids.png"
             alt="Brinkids Store"
-            style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
+            className="store-logo-img"
             onError={(e) => {
               e.currentTarget.src = 'https://brinkidstore.com/cdn/shop/files/logo_7dcef3ed-b8c5-4e25-b8b3-626bf9942c2a.png?v=1728847918&width=600';
             }}
           />
+          <span
+            className="store-xmas-pill"
+            style={{
+              background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+              color: '#fde047',
+              fontSize: '0.68rem',
+              fontWeight: 900,
+              padding: '4px 8px',
+              borderRadius: '20px',
+              letterSpacing: '0.4px',
+              border: '1px solid #fde047',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            🎄 NATAL 2026
+          </span>
         </div>
 
-        {/* Campo de Busca */}
-        <div
-          style={{
-            flex: '1',
-            maxWidth: '520px',
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
+        {/* Campo de Busca nos 102 Produtos */}
+        <div className="store-search-box">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Buscar brinquedos pedagógicos, idade, livros..."
+            placeholder="Buscar brinquedo, idade, Montessori..."
             style={{
               width: '100%',
-              padding: '10px 42px 10px 16px',
+              padding: '10px 42px 10px 14px',
               borderRadius: '24px',
-              border: '1.5px solid #cbd5e1',
-              fontSize: '0.88rem',
+              border: '1.5px solid #fca5a5',
+              fontSize: '0.85rem',
               outline: 'none',
-              transition: 'border-color 0.2s',
-              background: '#f8fafc'
+              transition: 'all 0.2s',
+              background: '#fffafa'
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = '#0ea5e9';
+              e.target.style.borderColor = '#dc2626';
               e.target.style.background = '#ffffff';
+              e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.12)';
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = '#cbd5e1';
-              e.target.style.background = '#f8fafc';
+              e.target.style.borderColor = '#fca5a5';
+              e.target.style.background = '#fffafa';
+              e.target.style.boxShadow = 'none';
             }}
           />
           <button
             type="button"
             style={{
               position: 'absolute',
-              right: '8px',
-              background: '#0ea5e9',
+              right: '5px',
+              background: 'linear-gradient(135deg, #dc2626, #991b1b)',
               color: '#ffffff',
               border: 'none',
               width: '32px',
@@ -121,7 +120,7 @@ export default function Navbar({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.85rem'
+              fontSize: '0.82rem'
             }}
             aria-label="Buscar"
           >
@@ -129,66 +128,39 @@ export default function Navbar({
           </button>
         </div>
 
-        {/* Ações (WhatsApp & Carrinho) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          {/* Suporte WhatsApp */}
-          <a
-            href="https://wa.me/5531972327905?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20brinquedos%20da%20Brinkids"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              textDecoration: 'none',
-              color: '#059669',
-              fontWeight: 700,
-              fontSize: '0.84rem',
-              padding: '8px 12px',
-              borderRadius: '20px',
-              background: '#ecfdf5',
-              border: '1px solid #a7f3d0'
-            }}
-          >
-            <span>💬</span>
-            <span className="nav-help-text" style={{ display: 'inline-block' }}>Atendimento</span>
-          </a>
-
-          {/* Carrinho */}
+        {/* Ações (Sacola Natalina) */}
+        <div className="store-actions-box">
+          {/* Sacola */}
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
+            className="store-cart-btn"
             style={{
               position: 'relative',
-              background: '#f1f5f9',
-              border: 'none',
+              background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+              border: '1.5px solid #fde047',
               borderRadius: '24px',
-              padding: '8px 16px',
+              padding: '9px 16px',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '6px',
               cursor: 'pointer',
-              fontWeight: 700,
-              color: '#0f172a',
-              fontSize: '0.88rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              fontSize: '0.85rem',
+              boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)',
               transition: 'all 0.2s'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#e2e8f0';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#f1f5f9';
-            }}
           >
-            <span style={{ fontSize: '1.2rem' }}>🛒</span>
-            <span>Carrinho</span>
+            <span style={{ fontSize: '1.05rem' }}>🎁</span>
+            <span>Sacola</span>
             {totalItems > 0 && (
               <span
                 style={{
-                  background: '#ef4444',
-                  color: '#ffffff',
+                  background: '#fde047',
+                  color: '#991b1b',
                   fontSize: '0.72rem',
-                  fontWeight: 800,
+                  fontWeight: 900,
                   borderRadius: '50%',
                   width: '20px',
                   height: '20px',

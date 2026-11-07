@@ -13,60 +13,57 @@ export default function AboutUs() {
   };
 
   return (
-    <section style={{ maxWidth: '1240px', margin: '48px auto', padding: '0 16px' }}>
+    <section style={{ maxWidth: '1260px', margin: '48px auto', padding: '0 16px' }}>
       <div
+        className="about-us-card"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '32px',
-          alignItems: 'center',
           background: '#ffffff',
           borderRadius: '24px',
           padding: '40px 32px',
-          border: '1px solid #e2e8f0',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
+          border: '1.5px solid #fecaca',
+          boxShadow: '0 6px 20px rgba(185, 28, 28, 0.05)'
         }}
       >
         {/* Texto Sobre Nós */}
         <div>
-          <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            Menos tela, mais mundo para brincar
+          <span style={{ fontSize: '0.8rem', fontWeight: 900, color: '#dc2626', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            🎄 Menos tela, mais magia neste Natal
           </span>
-          <h2 style={{ fontSize: '1.7rem', fontWeight: 900, color: '#0f172a', margin: '8px 0 16px' }}>
-            Um Pouco Sobre Nós
+          <h2 className="section-heading-responsive" style={{ fontSize: '1.7rem', fontWeight: 900, color: '#7f1d1d', margin: '8px 0 16px' }}>
+            Um Pouco Sobre a Brinkids
           </h2>
           <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, marginBottom: '16px' }}>
-            Na <strong>Brinkids Store</strong>, acreditamos no poder do brincar verdadeiro. Oferecemos brinquedos que despertam a imaginação, incentivam a criatividade e proporcionam momentos de conexão genuína sem precisar de telas digitais.
+            Na <strong>Brinkids Store</strong>, acreditamos no poder do brincar verdadeiro. Oferecemos <strong>brinquedos educativos e produtos infantis</strong> que despertam a imaginação, incentivam a criatividade e proporcionam momentos de conexão genuína sem precisar de telas digitais.
           </p>
           <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, margin: 0 }}>
-            Cada produto é testado e selecionado por pedagogos e especialistas em infância para garantir segurança absoluta, desenvolvimento sensorial e muita diversão em família!
+            Cada item da nossa Campanha de Natal foi selecionado com amor para garantir segurança absoluta, desenvolvimento sensorial e muita alegria em família!
           </p>
         </div>
 
-        {/* Caixa de Newsletter / Cupom */}
+        {/* Caixa de Newsletter / Ofertas Exclusivas de Natal */}
         <div
           style={{
-            background: '#f8fafc',
-            border: '2px dashed #0284c7',
+            background: '#fff1f2',
+            border: '2px dashed #dc2626',
             borderRadius: '20px',
             padding: '30px 24px',
             textAlign: 'center'
           }}
         >
-          <div style={{ fontSize: '2.4rem', marginBottom: '8px' }}>🎁</div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: '0 0 6px' }}>
-            Receba Nossas Promoções
+          <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>🎅🎁</div>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#7f1d1d', margin: '0 0 6px' }}>
+            Ofertas Exclusivas de Natal
           </h3>
           <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 16px' }}>
-            Cadastre seu e-mail e receba o cupom exclusivo de <strong>10% OFF</strong> para sua primeira compra!
+            Cadastre seu e-mail para receber novidades e ofertas relâmpago da Brinkids com até <strong>52% OFF no Pix</strong>!
           </p>
 
           {subscribed ? (
-            <div style={{ background: '#dcfce7', color: '#15803d', padding: '12px', borderRadius: '10px', fontWeight: 700, fontSize: '0.88rem' }}>
-              🎉 Parabéns! Use o cupom <strong>BLACK10</strong> no checkout!
+            <div style={{ background: '#dcfce7', color: '#15803d', padding: '12px', borderRadius: '10px', fontWeight: 800, fontSize: '0.88rem' }}>
+              🎉 Cadastro confirmado! Aproveite todas as ofertas de Natal com desconto imediato no Pix!
             </div>
           ) : (
-            <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '8px', maxWidth: '380px', margin: '0 auto' }}>
+            <form className="newsletter-form-responsive" onSubmit={handleSubscribe} style={{ display: 'flex', gap: '8px', maxWidth: '380px', margin: '0 auto' }}>
               <input
                 type="email"
                 value={email}
@@ -77,7 +74,7 @@ export default function AboutUs() {
                   flex: 1,
                   padding: '10px 14px',
                   borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
+                  border: '1px solid #fca5a5',
                   fontSize: '0.85rem',
                   outline: 'none'
                 }}
@@ -85,7 +82,7 @@ export default function AboutUs() {
               <button
                 type="submit"
                 style={{
-                  background: '#0284c7',
+                  background: 'linear-gradient(135deg, #dc2626, #991b1b)',
                   color: '#ffffff',
                   border: 'none',
                   padding: '10px 18px',
@@ -95,7 +92,7 @@ export default function AboutUs() {
                   cursor: 'pointer'
                 }}
               >
-                Quero!
+                Cadastrar
               </button>
             </form>
           )}
@@ -104,4 +101,3 @@ export default function AboutUs() {
     </section>
   );
 }
-

@@ -3,58 +3,69 @@ import { AGE_CATEGORIES } from '../../data/products';
 
 export default function AgeCategories({ selectedCategory, onSelectCategory }) {
   return (
-    <section style={{ maxWidth: '1240px', margin: '36px auto 20px', padding: '0 16px' }}>
-      <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: '0 0 6px' }}>
-          Escolha o presente ideal:
+    <section style={{ maxWidth: '1260px', margin: '28px auto 20px', padding: '0 14px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <div
+          style={{
+            display: 'inline-block',
+            background: '#fef2f2',
+            color: '#dc2626',
+            fontWeight: 900,
+            fontSize: '0.73rem',
+            padding: '4px 12px',
+            borderRadius: '20px',
+            border: '1px solid #fecaca',
+            marginBottom: '6px'
+          }}
+        >
+          🎄 GUIA DE PRESENTES DE NATAL
+        </div>
+        <h2 className="section-heading-responsive" style={{ fontSize: '1.55rem', fontWeight: 900, color: '#7f1d1d', margin: '0 0 6px' }}>
+          Escolha o presente de Natal ideal por idade:
         </h2>
-        <p style={{ color: '#64748b', fontSize: '0.88rem', margin: 0 }}>
-          Brinquedos educativos e sensoriais pensados para cada etapa do desenvolvimento
+        <p style={{ color: '#64748b', fontSize: '0.85rem', margin: 0 }}>
+          Deslize ou toque na idade para filtrar os presentes recomendados
         </p>
       </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-          gap: '16px',
-          justifyContent: 'center'
-        }}
-      >
-        {/* Opção Todos */}
+      <div className="age-categories-grid">
+        {/* Opção Todos os 102 Produtos */}
         <div
+          className="age-cat-card"
           onClick={() => onSelectCategory('all')}
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             cursor: 'pointer',
-            padding: '12px 8px',
-            borderRadius: '16px',
-            background: selectedCategory === 'all' ? '#e0f2fe' : '#ffffff',
-            border: selectedCategory === 'all' ? '2px solid #0284c7' : '1px solid #e2e8f0',
+            padding: '14px 8px',
+            borderRadius: '18px',
+            background: selectedCategory === 'all' ? 'linear-gradient(135deg, #fff1f2, #ffe4e6)' : '#ffffff',
+            border: selectedCategory === 'all' ? '2px solid #dc2626' : '1px solid #fecaca',
             transition: 'all 0.2s',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+            boxShadow: selectedCategory === 'all' ? '0 8px 20px rgba(220, 38, 38, 0.15)' : '0 2px 6px rgba(0,0,0,0.04)'
           }}
         >
           <div
+            className="age-cat-circle"
             style={{
               width: '74px',
               height: '74px',
               borderRadius: '50%',
-              background: '#0ea5e9',
-              color: '#ffffff',
+              background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+              color: '#fde047',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.8rem',
-              marginBottom: '10px'
+              fontSize: '1.9rem',
+              marginBottom: '8px',
+              border: '3px solid #fde047'
             }}
           >
-            🧸
+            🎅
           </div>
-          <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0f172a', textAlign: 'center' }}>
-            Todas as Idades
+          <span className="age-cat-label" style={{ fontSize: '0.84rem', fontWeight: 900, color: '#991b1b', textAlign: 'center' }}>
+            Todos (102)
           </span>
         </div>
 
@@ -63,35 +74,31 @@ export default function AgeCategories({ selectedCategory, onSelectCategory }) {
           return (
             <div
               key={cat.id}
+              className="age-cat-card"
               onClick={() => onSelectCategory(cat.id)}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 cursor: 'pointer',
-                padding: '12px 8px',
-                borderRadius: '16px',
-                background: isSelected ? '#e0f2fe' : '#ffffff',
-                border: isSelected ? '2px solid #0284c7' : '1px solid #e2e8f0',
+                padding: '14px 8px',
+                borderRadius: '18px',
+                background: isSelected ? 'linear-gradient(135deg, #fff1f2, #ffe4e6)' : '#ffffff',
+                border: isSelected ? '2px solid #dc2626' : '1px solid #fecaca',
                 transition: 'all 0.2s',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
-              }}
-              onMouseEnter={(e) => {
-                if (!isSelected) e.currentTarget.style.transform = 'translateY(-3px)';
-              }}
-              onMouseLeave={(e) => {
-                if (!isSelected) e.currentTarget.style.transform = 'translateY(0)';
+                boxShadow: isSelected ? '0 8px 20px rgba(220, 38, 38, 0.15)' : '0 2px 6px rgba(0,0,0,0.04)'
               }}
             >
               <div
+                className="age-cat-circle"
                 style={{
                   width: '74px',
                   height: '74px',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  background: '#f1f5f9',
-                  border: isSelected ? '3px solid #0284c7' : '2px solid #e2e8f0',
-                  marginBottom: '10px'
+                  background: '#fff1f2',
+                  border: isSelected ? '3px solid #dc2626' : '2px solid #fca5a5',
+                  marginBottom: '8px'
                 }}
               >
                 <img
@@ -102,10 +109,11 @@ export default function AgeCategories({ selectedCategory, onSelectCategory }) {
                 />
               </div>
               <span
+                className="age-cat-label"
                 style={{
-                  fontSize: '0.85rem',
+                  fontSize: '0.84rem',
                   fontWeight: 800,
-                  color: isSelected ? '#0284c7' : '#0f172a',
+                  color: isSelected ? '#dc2626' : '#0f172a',
                   textAlign: 'center'
                 }}
               >
@@ -118,4 +126,3 @@ export default function AgeCategories({ selectedCategory, onSelectCategory }) {
     </section>
   );
 }
-

@@ -56,20 +56,20 @@ export default function CartDrawer({ onCheckoutCart }) {
         <div
           style={{
             padding: '18px 20px',
-            borderBottom: '1px solid #e2e8f0',
+            borderBottom: '2px solid #fde047',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: '#0f172a',
+            background: 'linear-gradient(135deg, #991b1b, #dc2626)',
             color: '#ffffff'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '1.3rem' }}>🛒</span>
+            <span style={{ fontSize: '1.4rem' }}>🎁</span>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '1rem' }}>Seu Carrinho de Natal</div>
-              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
-                {totalItems} {totalItems === 1 ? 'item selecionado' : 'itens selecionados'}
+              <div style={{ fontWeight: 900, fontSize: '1rem' }}>Sacola de Natal Brinkids</div>
+              <div style={{ fontSize: '0.72rem', color: '#fef2f2' }}>
+                {totalItems} {totalItems === 1 ? 'presente selecionado' : 'presentes selecionados'}
               </div>
             </div>
           </div>
@@ -213,20 +213,20 @@ export default function CartDrawer({ onCheckoutCart }) {
 
         {/* Rodapé do Carrinho com Resumo e Botão de Checkout */}
         {cart.length > 0 && (
-          <div style={{ padding: '18px 20px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
+          <div style={{ padding: '18px 20px', borderTop: '1px solid #fecaca', background: '#fffafa' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#64748b', marginBottom: '4px' }}>
-              <span>Economia Black Friday:</span>
-              <span style={{ color: '#0284c7', fontWeight: 800 }}>- R$ {totalSavings.toFixed(2).replace('.', ',')}</span>
+              <span>Economia de Natal Brinkids:</span>
+              <span style={{ color: '#dc2626', fontWeight: 800 }}>- R$ {totalSavings.toFixed(2).replace('.', ',')}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#64748b', marginBottom: '8px' }}>
-              <span>Frete Expresso Brasil:</span>
+              <span>Frete Expresso de Natal:</span>
               <span style={{ color: '#16a34a', fontWeight: 800 }}>GRÁTIS HOJE</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', marginBottom: '14px', paddingTop: '8px', borderTop: '1px dashed #cbd5e1' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', marginBottom: '14px', paddingTop: '8px', borderTop: '1px dashed #fca5a5' }}>
               <span>Total no PIX:</span>
-              <span style={{ color: '#0284c7' }}>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
+              <span style={{ color: '#15803d' }}>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
             </div>
 
             <button
@@ -236,7 +236,7 @@ export default function CartDrawer({ onCheckoutCart }) {
               }}
               style={{
                 width: '100%',
-                background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+                background: 'linear-gradient(135deg, #16a34a, #15803d)',
                 color: '#ffffff',
                 border: 'none',
                 padding: '14px',
@@ -248,7 +248,7 @@ export default function CartDrawer({ onCheckoutCart }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
-                boxShadow: '0 4px 14px rgba(2,132,199,0.35)',
+                boxShadow: '0 4px 14px rgba(22,163,74,0.35)',
                 transition: 'filter 0.2s'
               }}
               onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.06)')}

@@ -2105,3 +2105,470 @@ footer {
   font-weight: 700;
   cursor: pointer;
 }
+
+/* ==========================================================================
+   SISTEMA DE RESPONSIVIDADE TOTAL BRINKIDS STORE (MOBILE, TABLET & DESKTOP)
+   ========================================================================== */
+body {
+  padding-bottom: 0 !important;
+  overflow-x: hidden;
+}
+
+header.store-header {
+  padding: 0 !important;
+  width: 100%;
+}
+
+/* --- 1. Navbar & Header Responsivo --- */
+.store-top-bar {
+  background: linear-gradient(90deg, #7f1d1d 0%, #dc2626 50%, #14532d 100%);
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(253, 224, 71, 0.35);
+}
+
+.store-navbar-inner {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.store-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.store-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.store-search-box {
+  flex: 1;
+  min-width: 240px;
+  max-width: 540px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.store-actions-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .store-top-bar {
+    font-size: 0.71rem;
+    padding: 6px 10px;
+    gap: 4px;
+  }
+  .store-top-bar-extra {
+    display: none;
+  }
+  .store-navbar-inner {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .store-logo-img {
+    height: 32px;
+  }
+  .store-xmas-pill {
+    font-size: 0.62rem !important;
+    padding: 3px 6px !important;
+  }
+  .store-actions-box {
+    order: 2;
+    gap: 6px;
+  }
+  .nav-help-text {
+    display: none !important;
+  }
+  .store-support-btn {
+    padding: 8px 10px !important;
+  }
+  .store-cart-btn {
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+  }
+  .store-search-box {
+    order: 3;
+    flex-basis: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+/* --- 2. Hero Banner & Selos de Confiança Responsivos --- */
+.hero-xmas-strip {
+  background: linear-gradient(90deg, #991b1b 0%, #dc2626 50%, #991b1b 100%);
+  color: #ffffff;
+  padding: 10px 14px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.84rem;
+  border-top: 2px solid #fde047;
+  border-bottom: 2px solid #fde047;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.trust-badges-grid {
+  max-width: 1260px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 960px) {
+  .trust-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-xmas-strip {
+    font-size: 0.72rem;
+    padding: 8px 10px;
+    gap: 4px;
+  }
+  .trust-badges-wrapper {
+    padding: 12px 10px !important;
+  }
+  .trust-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .trust-badge-card {
+    padding: 8px 10px !important;
+    gap: 8px !important;
+  }
+  .trust-badge-icon {
+    font-size: 1.25rem !important;
+  }
+  .trust-badge-title {
+    font-size: 0.74rem !important;
+    line-height: 1.2;
+  }
+  .trust-badge-sub {
+    font-size: 0.66rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* --- 3. Categorias por Idade (Carrossel Deslizante no Mobile) --- */
+.age-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .age-categories-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .age-categories-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .age-cat-card {
+    min-width: 102px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 10px 6px !important;
+  }
+  .age-cat-circle {
+    width: 62px !important;
+    height: 62px !important;
+  }
+  .age-cat-label {
+    font-size: 0.78rem !important;
+  }
+}
+
+/* --- 4. Grade de Produtos (4 Colunas Desktop, 3 Tablet, 2 Mobile igual Brinkids) --- */
+.store-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1040px) {
+  .store-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .store-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .store-product-card {
+    border-radius: 12px !important;
+  }
+  .store-card-body {
+    padding: 10px !important;
+  }
+  .store-card-rating-row {
+    margin-bottom: 4px !important;
+  }
+  .store-card-stars {
+    font-size: 0.7rem !important;
+  }
+  .store-card-reviews {
+    font-size: 0.65rem !important;
+  }
+  .store-card-age-tag {
+    display: none !important;
+  }
+  .store-card-title {
+    font-size: 0.8rem !important;
+    line-height: 1.28 !important;
+    min-height: 2.56em !important;
+    margin-bottom: 6px !important;
+  }
+  .store-card-frete-tag {
+    font-size: 0.62rem !important;
+    padding: 2px 5px !important;
+  }
+  .store-card-price-box {
+    padding: 6px 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .store-card-old-price {
+    font-size: 0.68rem !important;
+  }
+  .store-card-price {
+    font-size: 1.02rem !important;
+  }
+  .store-card-pix-pill {
+    font-size: 0.6rem !important;
+    padding: 1px 4px !important;
+  }
+  .store-card-installments {
+    font-size: 0.64rem !important;
+  }
+  .store-card-btn-buy {
+    padding: 8px 6px !important;
+    font-size: 0.72rem !important;
+    border-radius: 8px !important;
+  }
+  .store-card-btn-cart {
+    padding: 6px 6px !important;
+    font-size: 0.69rem !important;
+    border-radius: 8px !important;
+  }
+  .store-card-badge-discount {
+    top: 6px !important;
+    left: 6px !important;
+    font-size: 0.64rem !important;
+    padding: 2px 6px !important;
+  }
+  .store-card-badge-bottom {
+    bottom: 6px !important;
+    left: 6px !important;
+    font-size: 0.6rem !important;
+    padding: 2px 6px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .store-products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 5. Cabeçalhos de Seções, Depoimentos, Sobre Nós e Rodapé --- */
+.bestsellers-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.why-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  text-align: left;
+}
+
+.about-us-card {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.store-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+@media (max-width: 960px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .why-pillars-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-us-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px !important;
+  }
+  .store-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .bestsellers-banner-header {
+    padding: 16px !important;
+    text-align: center;
+    justify-content: center;
+  }
+  .bestsellers-banner-header h2,
+  .section-heading-responsive {
+    font-size: 1.25rem !important;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .why-buy-container {
+    padding: 26px 16px !important;
+    border-radius: 18px !important;
+  }
+  .why-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .about-us-card {
+    padding: 22px 16px !important;
+  }
+  .newsletter-form-responsive {
+    flex-direction: column;
+  }
+  .newsletter-form-responsive button {
+    width: 100%;
+    padding: 12px !important;
+  }
+  .store-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* --- 6. Modais (Detalhes do Produto, Checkout PIX e Rastreio) Responsivos --- */
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 768px) {
+  .product-detail-modal-box {
+    padding: 16px !important;
+    border-radius: 16px !important;
+    max-height: 92vh !important;
+  }
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .product-detail-actions {
+    flex-direction: column;
+  }
+  .modal-overlay {
+    padding: 10px;
+  }
+  .modal-content,
+  .modal-content.modal-content-wide {
+    padding: 18px 14px;
+    max-height: 94vh;
+  }
+  .checkout-steps-bar {
+    font-size: 0.68rem;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tracking-code-number {
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+    word-break: break-all;
+  }
+  .tracking-hero-card,
+  .tracking-card {
+    padding: 20px 14px;
+  }
+}
+
+/* --- 7. Chat Flutuante & Toast de Prova Social no Mobile --- */
+@media (max-width: 540px) {
+  .support-chat-wrapper {
+    right: 12px !important;
+    bottom: 12px !important;
+  }
+  .support-chat-window {
+    width: calc(100vw - 24px) !important;
+    height: calc(100vh - 90px) !important;
+    max-height: 520px !important;
+  }
+  .support-chat-fab {
+    padding: 10px 14px !important;
+    font-size: 0.8rem !important;
+  }
+  .toast-container {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 68px !important;
+  }
+  .toast-container .toast {
+    max-width: 100% !important;
+    padding: 10px 12px !important;
+  }
+}
+
