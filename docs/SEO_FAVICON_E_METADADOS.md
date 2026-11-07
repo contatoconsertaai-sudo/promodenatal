@@ -6,13 +6,12 @@ Este documento descreve as melhorias de SEO, indexação para o Google, pré-vis
 
 ## 1. Melhoria do Título da Aba (`<title>`)
 
-* **Antes:** `Cachorro Robô Inteligente Smart Pet Dogbot - Oferta de Natal` (cortava na aba do navegador ficando apenas *"Cachorro Robô Inteligente Sma..."*).
-* **Novo Título Otimizado:**
+* **Título Otimizado e Profissional:**
   ```html
-  <title>🐶 Smart Pet Dogbot® — Presente de Natal Oficial por R$ 99,90</title>
+  <title>Smart Pet Dogbot® — Loja Oficial</title>
   ```
-  * **Emoji de Identificação Imediata:** O ícone `🐶` aparece no início da aba, facilitando a identificação imediata mesmo se o usuário tiver várias abas abertas.
-  * **Gatilho de Conversão Direto:** Destaca a campanha oficial de Natal e o preço com desconto (R$ 99,90).
+  * **Design Limpo e sem Duplicação:** Como a aba já exibe o Favicon oficial do robô com gorro de Natal, removemos o emoji de texto para evitar que dois ícones aparecessem grudados na aba.
+  * **Encaixe Perfeito na Aba:** O texto curto e elegante cabe completamente dentro da aba do Chrome/Edge sem cortes feios.
 
 ---
 
